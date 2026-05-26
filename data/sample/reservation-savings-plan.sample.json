@@ -1,0 +1,30 @@
+{
+  "coverage": {
+    "reservationCoveragePercent": 61.8,
+    "savingsPlanCoveragePercent": 48.5
+  },
+  "reservationCoveragePercent": 61.8,
+  "savingsPlanUtilizationPercent": 94.2,
+  "expiring": [
+    {
+      "name": "sample-vm-reservation-weu",
+      "type": "Reservation",
+      "expiresOn": "2026-07-01",
+      "utilizationPercent": 88.4
+    },
+    {
+      "name": "sample-compute-savings-plan",
+      "type": "SavingsPlan",
+      "expiresOn": "2026-08-21",
+      "utilizationPercent": 96.5
+    }
+  ],
+  "recommendations": [
+    {
+      "title": "Buy 3-year Compute Savings Plan",
+      "scope": "sample-prod",
+      "annualSavings": 168000
+    }
+  ]
+}
+

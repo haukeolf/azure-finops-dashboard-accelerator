@@ -1,0 +1,21 @@
+[
+  {
+    "title": "Azure OpenAI token usage increased",
+    "severity": "high",
+    "subscriptionName": "sample-ai-foundry",
+    "rootCauseCandidate": "New customer-service deployments increased token usage."
+  },
+  {
+    "title": "SQL database scaled up",
+    "severity": "medium",
+    "subscriptionName": "sample-billing-platform",
+    "rootCauseCandidate": "Database SKU changed from Business Critical 8 vCore to 16 vCore."
+  },
+  {
+    "title": "Inter-region egress increased",
+    "severity": "high",
+    "subscriptionName": "sample-smartmeter",
+    "rootCauseCandidate": "DR replication path increased traffic between regions."
+  }
+]
+

@@ -1,0 +1,24 @@
+[
+  {
+    "subscriptionName": "sample-billing-platform",
+    "resourceId": "/subscriptions/sample/resourceGroups/rg-billing/providers/Microsoft.Sql/servers/sample-sql/databases/sample-db",
+    "metricName": "cpu_percent",
+    "average": 38,
+    "unit": "Percent"
+  },
+  {
+    "subscriptionName": "sample-networking",
+    "resourceId": "/subscriptions/sample/resourceGroups/rg-network/providers/Microsoft.Network/expressRouteCircuits/sample-er",
+    "metricName": "bits_per_second",
+    "average": 38,
+    "unit": "PercentOfCapacity"
+  },
+  {
+    "subscriptionName": "sample-ai-foundry",
+    "resourceId": "/subscriptions/sample/resourceGroups/rg-ai/providers/Microsoft.CognitiveServices/accounts/sample-openai",
+    "metricName": "tokens",
+    "average": 1850000000,
+    "unit": "Count"
+  }
+]
+

@@ -1,0 +1,39 @@
+[
+  {
+    "title": "Buy 3-year Compute Savings Plan",
+    "subscriptionName": "sample-prod",
+    "owner": "Cloud Platform",
+    "cluster": "Compute",
+    "source": "Savings Plan Recommendations API",
+    "effort": "Low",
+    "annualSavings": 168000
+  },
+  {
+    "title": "Downsize ExpressRoute circuit after utilization review",
+    "subscriptionName": "sample-networking",
+    "owner": "Network Platform",
+    "cluster": "Network",
+    "source": "Azure Monitor + custom rule",
+    "effort": "Medium",
+    "annualSavings": 170000
+  },
+  {
+    "title": "Commit Azure OpenAI PTU for stable GPT-4o usage",
+    "subscriptionName": "sample-ai-foundry",
+    "owner": "Data and AI Platform",
+    "cluster": "AI & Analytics",
+    "source": "Custom FinOps rule",
+    "effort": "Medium",
+    "annualSavings": 96000
+  },
+  {
+    "title": "Right-size SQL database from 16 to 12 vCore",
+    "subscriptionName": "sample-billing-platform",
+    "owner": "Distribution",
+    "cluster": "Database",
+    "source": "Azure Advisor",
+    "effort": "Low",
+    "annualSavings": 28800
+  }
+]
+

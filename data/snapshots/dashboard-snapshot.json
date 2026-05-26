@@ -1,0 +1,228 @@
+{
+  "schemaVersion": "0.1.0",
+  "generatedAt": "2026-05-20T14:33:27.685736+00:00",
+  "period": {
+    "id": "sample-current",
+    "label": "Synthetic May 2026 sample"
+  },
+  "summary": {
+    "currentCost": 1985000,
+    "previousCost": 1615000,
+    "deltaMonth": 370000,
+    "deltaQuarterPercent": 7.3,
+    "commitmentCoveragePercent": 61.8,
+    "annualSavingsPotential": 462800
+  },
+  "commercialChanges": [
+    {
+      "service": "Virtual Machines",
+      "cluster": "Compute",
+      "delta": 180000,
+      "currentCost": 920000,
+      "previousCost": 740000,
+      "driver": "Existing ML retraining workload"
+    },
+    {
+      "service": "Azure OpenAI Service",
+      "cluster": "AI & Analytics",
+      "delta": 160000,
+      "currentCost": 580000,
+      "previousCost": 420000,
+      "driver": "Baseline token usage"
+    },
+    {
+      "service": "Azure SQL Database",
+      "cluster": "Database",
+      "delta": 40000,
+      "currentCost": 235000,
+      "previousCost": 195000,
+      "driver": "Business Critical 8 vCore"
+    },
+    {
+      "service": "Blob Storage",
+      "cluster": "Storage",
+      "delta": -36000,
+      "currentCost": 142000,
+      "previousCost": 178000,
+      "driver": "Hot tier storage"
+    },
+    {
+      "service": "Bandwidth",
+      "cluster": "Network",
+      "delta": 26000,
+      "currentCost": 108000,
+      "previousCost": 82000,
+      "driver": "Baseline replication"
+    }
+  ],
+  "serviceClusters": [
+    {
+      "name": "Compute",
+      "cost": 920000,
+      "deltaMonth": 180000,
+      "sharePercent": 46.34760705289673
+    },
+    {
+      "name": "AI & Analytics",
+      "cost": 580000,
+      "deltaMonth": 160000,
+      "sharePercent": 29.219143576826195
+    },
+    {
+      "name": "Database",
+      "cost": 235000,
+      "deltaMonth": 40000,
+      "sharePercent": 11.838790931989925
+    },
+    {
+      "name": "Storage",
+      "cost": 142000,
+      "deltaMonth": -36000,
+      "sharePercent": 7.153652392947103
+    },
+    {
+      "name": "Network",
+      "cost": 108000,
+      "deltaMonth": 26000,
+      "sharePercent": 5.44080604534005
+    }
+  ],
+  "subscriptions": [
+    {
+      "name": "sample-grid-analytics",
+      "tenant": "sample-prod",
+      "owner": "Grid Technology",
+      "currentCost": 920000,
+      "costCenter": "GT-000"
+    },
+    {
+      "name": "sample-ai-foundry",
+      "tenant": "sample-prod",
+      "owner": "Data and AI Platform",
+      "currentCost": 580000,
+      "costCenter": "AI-000"
+    },
+    {
+      "name": "sample-billing-platform",
+      "tenant": "sample-prod",
+      "owner": "Distribution",
+      "currentCost": 235000,
+      "costCenter": "DV-000"
+    },
+    {
+      "name": "sample-data-lake",
+      "tenant": "sample-prod",
+      "owner": "Data Platform",
+      "currentCost": 142000,
+      "costCenter": "DP-000"
+    },
+    {
+      "name": "sample-smartmeter",
+      "tenant": "sample-prod",
+      "owner": "Metering",
+      "currentCost": 108000,
+      "costCenter": "ME-000"
+    }
+  ],
+  "commitments": {
+    "coverage": {
+      "reservationCoveragePercent": 61.8,
+      "savingsPlanCoveragePercent": 48.5
+    },
+    "reservationCoveragePercent": 61.8,
+    "savingsPlanUtilizationPercent": 94.2,
+    "expiring": [
+      {
+        "name": "sample-vm-reservation-weu",
+        "type": "Reservation",
+        "expiresOn": "2026-07-01",
+        "utilizationPercent": 88.4
+      },
+      {
+        "name": "sample-compute-savings-plan",
+        "type": "SavingsPlan",
+        "expiresOn": "2026-08-21",
+        "utilizationPercent": 96.5
+      }
+    ],
+    "recommendations": [
+      {
+        "title": "Buy 3-year Compute Savings Plan",
+        "scope": "sample-prod",
+        "annualSavings": 168000
+      }
+    ]
+  },
+  "anomalies": [
+    {
+      "title": "Azure OpenAI token usage increased",
+      "severity": "high",
+      "scope": "sample-ai-foundry",
+      "rootCauseCandidate": "New customer-service deployments increased token usage.",
+      "relatedMetric": "tokens"
+    },
+    {
+      "title": "SQL database scaled up",
+      "severity": "medium",
+      "scope": "sample-billing-platform",
+      "rootCauseCandidate": "Database SKU changed from Business Critical 8 vCore to 16 vCore.",
+      "relatedMetric": "cpu_percent"
+    },
+    {
+      "title": "Inter-region egress increased",
+      "severity": "high",
+      "scope": "sample-smartmeter",
+      "rootCauseCandidate": "DR replication path increased traffic between regions.",
+      "relatedMetric": "n/a"
+    }
+  ],
+  "recommendations": [
+    {
+      "title": "Downsize ExpressRoute circuit after utilization review",
+      "scope": "sample-networking",
+      "owner": "Network Platform",
+      "cluster": "Network",
+      "source": "Azure Monitor + custom rule",
+      "effort": "Medium",
+      "annualSavings": 170000
+    },
+    {
+      "title": "Buy 3-year Compute Savings Plan",
+      "scope": "sample-prod",
+      "owner": "Cloud Platform",
+      "cluster": "Compute",
+      "source": "Savings Plan Recommendations API",
+      "effort": "Low",
+      "annualSavings": 168000
+    },
+    {
+      "title": "Commit Azure OpenAI PTU for stable GPT-4o usage",
+      "scope": "sample-ai-foundry",
+      "owner": "Data and AI Platform",
+      "cluster": "AI & Analytics",
+      "source": "Custom FinOps rule",
+      "effort": "Medium",
+      "annualSavings": 96000
+    },
+    {
+      "title": "Right-size SQL database from 16 to 12 vCore",
+      "scope": "sample-billing-platform",
+      "owner": "Distribution",
+      "cluster": "Database",
+      "source": "Azure Advisor",
+      "effort": "Low",
+      "annualSavings": 28800
+    }
+  ],
+  "dataQuality": {
+    "costRows": 10,
+    "advisorRecommendations": 4,
+    "monitorFindings": 3,
+    "activityLogFindings": 3,
+    "notes": [
+      "Sample data is synthetic.",
+      "Production ingestion should use customer-owned storage, RBAC, and secret management.",
+      "Browser clients should consume snapshots or secured APIs, not Azure management credentials."
+    ]
+  }
+}
