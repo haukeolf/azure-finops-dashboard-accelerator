@@ -16,6 +16,12 @@
     "severity": "high",
     "subscriptionName": "sample-smartmeter",
     "rootCauseCandidate": "DR replication path increased traffic between regions."
+  },
+  {
+    "title": "Risk simulation grid scaled out",
+    "severity": "medium",
+    "subscriptionName": "sample-risk-grid",
+    "rootCauseCandidate": "Added stress-test scenarios increased VM scale set hours."
   }
 ]
 

@@ -1,228 +1,3976 @@
 {
-  "schemaVersion": "0.1.0",
-  "generatedAt": "2026-05-20T14:33:27.685736+00:00",
-  "period": {
-    "id": "sample-current",
-    "label": "Synthetic May 2026 sample"
-  },
-  "summary": {
-    "currentCost": 1985000,
-    "previousCost": 1615000,
-    "deltaMonth": 370000,
-    "deltaQuarterPercent": 7.3,
-    "commitmentCoveragePercent": 61.8,
-    "annualSavingsPotential": 462800
-  },
-  "commercialChanges": [
+  "schemaVersion": "0.3.0",
+  "generatedAt": "2026-05-27T07:10:57.972977+00:00",
+  "tenants": [
     {
-      "service": "Virtual Machines",
-      "cluster": "Compute",
-      "delta": 180000,
-      "currentCost": 920000,
-      "previousCost": 740000,
-      "driver": "Existing ML retraining workload"
+      "id": "all",
+      "label": "All tenants"
     },
     {
-      "service": "Azure OpenAI Service",
-      "cluster": "AI & Analytics",
-      "delta": 160000,
-      "currentCost": 580000,
-      "previousCost": 420000,
-      "driver": "Baseline token usage"
+      "id": "sample-prod",
+      "label": "sample-prod"
     },
     {
-      "service": "Azure SQL Database",
-      "cluster": "Database",
-      "delta": 40000,
-      "currentCost": 235000,
-      "previousCost": 195000,
-      "driver": "Business Critical 8 vCore"
-    },
-    {
-      "service": "Blob Storage",
-      "cluster": "Storage",
-      "delta": -36000,
-      "currentCost": 142000,
-      "previousCost": 178000,
-      "driver": "Hot tier storage"
-    },
-    {
-      "service": "Bandwidth",
-      "cluster": "Network",
-      "delta": 26000,
-      "currentCost": 108000,
-      "previousCost": 82000,
-      "driver": "Baseline replication"
+      "id": "sample-trading",
+      "label": "sample-trading"
     }
   ],
-  "serviceClusters": [
-    {
-      "name": "Compute",
-      "cost": 920000,
-      "deltaMonth": 180000,
-      "sharePercent": 46.34760705289673
-    },
-    {
-      "name": "AI & Analytics",
-      "cost": 580000,
-      "deltaMonth": 160000,
-      "sharePercent": 29.219143576826195
-    },
-    {
-      "name": "Database",
-      "cost": 235000,
-      "deltaMonth": 40000,
-      "sharePercent": 11.838790931989925
-    },
-    {
-      "name": "Storage",
-      "cost": 142000,
-      "deltaMonth": -36000,
-      "sharePercent": 7.153652392947103
-    },
-    {
-      "name": "Network",
-      "cost": 108000,
-      "deltaMonth": 26000,
-      "sharePercent": 5.44080604534005
-    }
-  ],
-  "subscriptions": [
-    {
-      "name": "sample-grid-analytics",
-      "tenant": "sample-prod",
-      "owner": "Grid Technology",
-      "currentCost": 920000,
-      "costCenter": "GT-000"
-    },
-    {
-      "name": "sample-ai-foundry",
-      "tenant": "sample-prod",
-      "owner": "Data and AI Platform",
-      "currentCost": 580000,
-      "costCenter": "AI-000"
-    },
-    {
-      "name": "sample-billing-platform",
-      "tenant": "sample-prod",
-      "owner": "Distribution",
-      "currentCost": 235000,
-      "costCenter": "DV-000"
-    },
-    {
-      "name": "sample-data-lake",
-      "tenant": "sample-prod",
-      "owner": "Data Platform",
-      "currentCost": 142000,
-      "costCenter": "DP-000"
-    },
-    {
-      "name": "sample-smartmeter",
-      "tenant": "sample-prod",
-      "owner": "Metering",
-      "currentCost": 108000,
-      "costCenter": "ME-000"
-    }
-  ],
-  "commitments": {
-    "coverage": {
-      "reservationCoveragePercent": 61.8,
-      "savingsPlanCoveragePercent": 48.5
-    },
-    "reservationCoveragePercent": 61.8,
-    "savingsPlanUtilizationPercent": 94.2,
-    "expiring": [
-      {
-        "name": "sample-vm-reservation-weu",
-        "type": "Reservation",
-        "expiresOn": "2026-07-01",
-        "utilizationPercent": 88.4
+  "defaultTenant": "all",
+  "views": {
+    "all": {
+      "period": {
+        "id": "sample-current-all",
+        "label": "Synthetic May 2026 · all tenants"
       },
-      {
-        "name": "sample-compute-savings-plan",
-        "type": "SavingsPlan",
-        "expiresOn": "2026-08-21",
-        "utilizationPercent": 96.5
+      "summary": {
+        "currentCost": 2525000,
+        "previousCost": 2039000,
+        "deltaMonth": 486000,
+        "deltaQuarterPercent": 7.3,
+        "commitmentCoveragePercent": 61.8,
+        "annualSavingsPotential": 546800,
+        "compare": {
+          "month": {
+            "label": "vs previous month",
+            "current": 2525000,
+            "previous": 2039000,
+            "delta": 486000,
+            "deltaPercent": 23.835213339872485
+          },
+          "quarter": {
+            "label": "vs previous quarter",
+            "current": 9716000,
+            "previous": 7765000,
+            "delta": 1951000,
+            "deltaPercent": 25.125563425627817
+          },
+          "year": {
+            "label": "vs same month last year",
+            "current": 3563000,
+            "previous": 1928000,
+            "delta": 1635000,
+            "deltaPercent": 84.80290456431536
+          }
+        }
+      },
+      "commercialChanges": [
+        {
+          "service": "Virtual Machines",
+          "cluster": "Compute",
+          "delta": 314000,
+          "deltaPercent": 31.150793650793652,
+          "currentCost": 1322000,
+          "previousCost": 1008000,
+          "driver": "Existing ML retraining workload"
+        },
+        {
+          "service": "Azure OpenAI Service",
+          "cluster": "AI & Analytics",
+          "delta": 160000,
+          "deltaPercent": 38.095238095238095,
+          "currentCost": 580000,
+          "previousCost": 420000,
+          "driver": "Baseline token usage"
+        },
+        {
+          "service": "Blob Storage",
+          "cluster": "Storage",
+          "delta": -36000,
+          "deltaPercent": -20.224719101123593,
+          "currentCost": 142000,
+          "previousCost": 178000,
+          "driver": "Hot tier storage"
+        },
+        {
+          "service": "Bandwidth",
+          "cluster": "Network",
+          "delta": 26000,
+          "deltaPercent": 31.70731707317073,
+          "currentCost": 108000,
+          "previousCost": 82000,
+          "driver": "Baseline replication"
+        },
+        {
+          "service": "Azure SQL Database",
+          "cluster": "Database",
+          "delta": 22000,
+          "deltaPercent": 6.267806267806268,
+          "currentCost": 373000,
+          "previousCost": 351000,
+          "driver": "Business Critical 8 vCore"
+        }
+      ],
+      "serviceClusters": [
+        {
+          "name": "Compute",
+          "cost": 1322000,
+          "previousCost": 1008000,
+          "deltaMonth": 314000,
+          "sharePercent": 52.35643564356436
+        },
+        {
+          "name": "AI & Analytics",
+          "cost": 580000,
+          "previousCost": 420000,
+          "deltaMonth": 160000,
+          "sharePercent": 22.970297029702973
+        },
+        {
+          "name": "Database",
+          "cost": 373000,
+          "previousCost": 351000,
+          "deltaMonth": 22000,
+          "sharePercent": 14.772277227722771
+        },
+        {
+          "name": "Storage",
+          "cost": 142000,
+          "previousCost": 178000,
+          "deltaMonth": -36000,
+          "sharePercent": 5.623762376237624
+        },
+        {
+          "name": "Network",
+          "cost": 108000,
+          "previousCost": 82000,
+          "deltaMonth": 26000,
+          "sharePercent": 4.2772277227722775
+        }
+      ],
+      "subscriptions": [
+        {
+          "name": "sample-grid-analytics",
+          "tenant": "sample-prod",
+          "owner": "Grid Technology",
+          "costCenter": "GT-000",
+          "currentCost": 920000,
+          "averageSixMonths": 836333.3333333334,
+          "deltaVsAverage": 83666.66666666663,
+          "spark": [
+            662400,
+            690000,
+            717600,
+            736000,
+            763600,
+            791200,
+            828000,
+            855600,
+            883200,
+            920000,
+            740000,
+            920000
+          ],
+          "status": "watch"
+        },
+        {
+          "name": "sample-ai-foundry",
+          "tenant": "sample-prod",
+          "owner": "Data and AI Platform",
+          "costCenter": "AI-000",
+          "currentCost": 580000,
+          "averageSixMonths": 519500,
+          "deltaVsAverage": 60500,
+          "spark": [
+            417600,
+            435000,
+            452400,
+            464000,
+            481400,
+            498800,
+            522000,
+            539400,
+            556800,
+            580000,
+            420000,
+            580000
+          ],
+          "status": "watch"
+        },
+        {
+          "name": "sample-risk-grid",
+          "tenant": "sample-trading",
+          "owner": "Trading Risk",
+          "costCenter": "TR-000",
+          "currentCost": 402000,
+          "averageSixMonths": 356216.6666666667,
+          "deltaVsAverage": 45783.333333333314,
+          "spark": [
+            289440,
+            301500,
+            313560,
+            321600,
+            333660,
+            345720,
+            361800,
+            373860,
+            385920,
+            402000,
+            268000,
+            402000
+          ],
+          "status": "watch"
+        },
+        {
+          "name": "sample-billing-platform",
+          "tenant": "sample-prod",
+          "owner": "Distribution",
+          "costCenter": "DV-000",
+          "currentCost": 235000,
+          "averageSixMonths": 214625,
+          "deltaVsAverage": 20375,
+          "spark": [
+            169200,
+            176250,
+            183300,
+            188000,
+            195050,
+            202100,
+            211500,
+            218550,
+            225600,
+            235000,
+            195000,
+            235000
+          ],
+          "status": "watch"
+        },
+        {
+          "name": "sample-data-lake",
+          "tenant": "sample-prod",
+          "owner": "Data Platform",
+          "costCenter": "DP-000",
+          "currentCost": 142000,
+          "averageSixMonths": 139716.66666666666,
+          "deltaVsAverage": 2283.333333333343,
+          "spark": [
+            102240,
+            106500,
+            110760,
+            113600,
+            117860,
+            122120,
+            127800,
+            132060,
+            136320,
+            142000,
+            178000,
+            142000
+          ],
+          "status": "watch"
+        },
+        {
+          "name": "sample-market-data",
+          "tenant": "sample-trading",
+          "owner": "Market Data",
+          "costCenter": "MD-000",
+          "currentCost": 138000,
+          "averageSixMonths": 132950,
+          "deltaVsAverage": 5050,
+          "spark": [
+            99360,
+            103500,
+            107640,
+            110400,
+            114540,
+            118680,
+            124200,
+            128340,
+            132480,
+            138000,
+            156000,
+            138000
+          ],
+          "status": "watch"
+        },
+        {
+          "name": "sample-smartmeter",
+          "tenant": "sample-prod",
+          "owner": "Metering",
+          "costCenter": "ME-000",
+          "currentCost": 108000,
+          "averageSixMonths": 97366.66666666667,
+          "deltaVsAverage": 10633.333333333328,
+          "spark": [
+            77760,
+            81000,
+            84240,
+            86400,
+            89640,
+            92880,
+            97200,
+            100440,
+            103680,
+            108000,
+            82000,
+            108000
+          ],
+          "status": "watch"
+        }
+      ],
+      "commitments": {
+        "coverage": {
+          "reservationCoveragePercent": 61.8,
+          "savingsPlanCoveragePercent": 48.5
+        },
+        "reservationCoveragePercent": 61.8,
+        "savingsPlanUtilizationPercent": 94.2,
+        "expiring": [
+          {
+            "name": "sample-vm-reservation-weu",
+            "type": "Reservation",
+            "expiresOn": "2026-07-01",
+            "utilizationPercent": 88.4
+          },
+          {
+            "name": "sample-compute-savings-plan",
+            "type": "SavingsPlan",
+            "expiresOn": "2026-08-21",
+            "utilizationPercent": 96.5
+          }
+        ],
+        "recommendations": [
+          {
+            "title": "Buy 3-year Compute Savings Plan",
+            "scope": "sample-prod",
+            "annualSavings": 168000
+          }
+        ],
+        "savings12m": [
+          78000,
+          82000,
+          86000,
+          92000,
+          98000,
+          106000,
+          114000,
+          122000,
+          131000,
+          140000,
+          149000,
+          158000
+        ],
+        "commitmentMix": [
+          {
+            "name": "VM Reservations",
+            "hourly": 28800
+          },
+          {
+            "name": "SQL Reservations",
+            "hourly": 4200
+          },
+          {
+            "name": "Savings Plan Compute",
+            "hourly": 32400
+          },
+          {
+            "name": "App Service Reservations",
+            "hourly": 3600
+          }
+        ],
+        "purchaseRecommendations": [
+          {
+            "title": "Buy 3-year Compute Savings Plan",
+            "scope": "sample-prod",
+            "annualSavings": 168000
+          },
+          {
+            "title": "Downsize ExpressRoute circuit after utilization review",
+            "scope": "sample-networking",
+            "upfront": 0,
+            "annualSavings": 170000,
+            "roi": "High"
+          },
+          {
+            "title": "Commit Azure OpenAI PTU for stable GPT-4o usage",
+            "scope": "sample-ai-foundry",
+            "upfront": 0,
+            "annualSavings": 96000,
+            "roi": "High"
+          }
+        ]
+      },
+      "anomalies": [
+        {
+          "title": "Azure OpenAI token usage increased",
+          "severity": "high",
+          "scope": "sample-ai-foundry",
+          "owner": "Data and AI Platform",
+          "delta": 0,
+          "rootCauseCandidate": "New customer-service deployments increased token usage.",
+          "relatedMetric": "tokens",
+          "recommendation": "Commit Azure OpenAI PTU for stable GPT-4o usage"
+        },
+        {
+          "title": "SQL database scaled up",
+          "severity": "medium",
+          "scope": "sample-billing-platform",
+          "owner": "Distribution",
+          "delta": 0,
+          "rootCauseCandidate": "Database SKU changed from Business Critical 8 vCore to 16 vCore.",
+          "relatedMetric": "cpu_percent",
+          "recommendation": "Right-size SQL database from 16 to 12 vCore"
+        },
+        {
+          "title": "Inter-region egress increased",
+          "severity": "high",
+          "scope": "sample-smartmeter",
+          "owner": "Metering",
+          "delta": 0,
+          "rootCauseCandidate": "DR replication path increased traffic between regions.",
+          "relatedMetric": "n/a",
+          "recommendation": "Review with workload owner"
+        },
+        {
+          "title": "Risk simulation grid scaled out",
+          "severity": "medium",
+          "scope": "sample-risk-grid",
+          "owner": "Trading Risk",
+          "delta": 0,
+          "rootCauseCandidate": "Added stress-test scenarios increased VM scale set hours.",
+          "relatedMetric": "cpu_percent",
+          "recommendation": "Buy 1-year VM reservation for risk simulation grid"
+        },
+        {
+          "title": "Blob Storage cost decreased",
+          "severity": "win",
+          "scope": "sample-data-lake",
+          "owner": "Data Platform",
+          "delta": -36000,
+          "rootCauseCandidate": "Hot tier storage",
+          "relatedMetric": "cost",
+          "recommendation": "Roll out the optimization pattern to comparable workloads."
+        }
+      ],
+      "recommendations": [
+        {
+          "title": "Downsize ExpressRoute circuit after utilization review",
+          "scope": "sample-networking",
+          "tenant": "sample-prod",
+          "owner": "Network Platform",
+          "cluster": "Network",
+          "source": "Azure Monitor + custom rule",
+          "effort": "Medium",
+          "annualSavings": 170000
+        },
+        {
+          "title": "Buy 3-year Compute Savings Plan",
+          "scope": "sample-prod",
+          "tenant": "sample-prod",
+          "owner": "Cloud Platform",
+          "cluster": "Compute",
+          "source": "Savings Plan Recommendations API",
+          "effort": "Low",
+          "annualSavings": 168000
+        },
+        {
+          "title": "Commit Azure OpenAI PTU for stable GPT-4o usage",
+          "scope": "sample-ai-foundry",
+          "tenant": "sample-prod",
+          "owner": "Data and AI Platform",
+          "cluster": "AI & Analytics",
+          "source": "Custom FinOps rule",
+          "effort": "Medium",
+          "annualSavings": 96000
+        },
+        {
+          "title": "Buy 1-year VM reservation for risk simulation grid",
+          "scope": "sample-risk-grid",
+          "tenant": "sample-trading",
+          "owner": "Trading Risk",
+          "cluster": "Compute",
+          "source": "Reservation Recommendations API",
+          "effort": "Low",
+          "annualSavings": 84000
+        },
+        {
+          "title": "Right-size SQL database from 16 to 12 vCore",
+          "scope": "sample-billing-platform",
+          "tenant": "sample-prod",
+          "owner": "Distribution",
+          "cluster": "Database",
+          "source": "Azure Advisor",
+          "effort": "Low",
+          "annualSavings": 28800
+        }
+      ],
+      "trend": {
+        "labels": [
+          "Jun 25",
+          "Jul 25",
+          "Aug 25",
+          "Sep 25",
+          "Oct 25",
+          "Nov 25",
+          "Dec 25",
+          "Jan 26",
+          "Feb 26",
+          "Mar 26",
+          "Apr 26",
+          "May 26*"
+        ],
+        "series": [
+          {
+            "name": "Compute",
+            "values": [
+              820000,
+              845000,
+              870000,
+              905000,
+              925000,
+              940000,
+              985000,
+              1020000,
+              1080000,
+              1150000,
+              1210000,
+              1330000
+            ]
+          },
+          {
+            "name": "Storage",
+            "values": [
+              310000,
+              318000,
+              326000,
+              332000,
+              345000,
+              358000,
+              372000,
+              380000,
+              395000,
+              410000,
+              422000,
+              442000
+            ]
+          },
+          {
+            "name": "Network",
+            "values": [
+              185000,
+              192000,
+              188000,
+              196000,
+              205000,
+              215000,
+              224000,
+              232000,
+              244000,
+              255000,
+              268000,
+              281000
+            ]
+          },
+          {
+            "name": "Database",
+            "values": [
+              240000,
+              250000,
+              260000,
+              268000,
+              275000,
+              282000,
+              290000,
+              298000,
+              310000,
+              322000,
+              335000,
+              358000
+            ]
+          },
+          {
+            "name": "AI & Analytics",
+            "values": [
+              55000,
+              68000,
+              85000,
+              102000,
+              124000,
+              155000,
+              192000,
+              240000,
+              305000,
+              395000,
+              510000,
+              680000
+            ]
+          },
+          {
+            "name": "Security",
+            "values": [
+              125000,
+              128000,
+              130000,
+              132000,
+              135000,
+              138000,
+              142000,
+              145000,
+              148000,
+              152000,
+              156000,
+              162000
+            ]
+          },
+          {
+            "name": "Containers",
+            "values": [
+              105000,
+              110000,
+              118000,
+              124000,
+              132000,
+              138000,
+              146000,
+              154000,
+              163000,
+              172000,
+              184000,
+              200000
+            ]
+          },
+          {
+            "name": "Other",
+            "values": [
+              88000,
+              91000,
+              92000,
+              90000,
+              93000,
+              95000,
+              98000,
+              100000,
+              102000,
+              105000,
+              107000,
+              110000
+            ]
+          }
+        ],
+        "anomalies": [
+          {
+            "index": 8,
+            "label": "Feb: ingestion spike"
+          },
+          {
+            "index": 10,
+            "label": "Apr: AI rollout"
+          },
+          {
+            "index": 11,
+            "label": "May: network over-provisioning"
+          }
+        ]
+      },
+      "waterfall": [
+        {
+          "label": "Previous month",
+          "value": 2039000,
+          "type": "total"
+        },
+        {
+          "label": "Virtual Machines",
+          "value": 314000,
+          "type": "up"
+        },
+        {
+          "label": "Azure OpenAI Service",
+          "value": 160000,
+          "type": "up"
+        },
+        {
+          "label": "Blob Storage",
+          "value": -36000,
+          "type": "down"
+        },
+        {
+          "label": "Bandwidth",
+          "value": 26000,
+          "type": "up"
+        },
+        {
+          "label": "Azure SQL Database",
+          "value": 22000,
+          "type": "up"
+        },
+        {
+          "label": "Current month",
+          "value": 2525000,
+          "type": "total"
+        }
+      ],
+      "quarterRollup": {
+        "previous": {
+          "Compute": 3085000,
+          "Storage": 1147000,
+          "Network": 700000,
+          "Database": 898000,
+          "AI & Analytics": 737000,
+          "Security": 435000,
+          "Containers": 463000,
+          "Other": 300000
+        },
+        "current": {
+          "Compute": 3690000,
+          "Storage": 1274000,
+          "Network": 804000,
+          "Database": 1015000,
+          "AI & Analytics": 1585000,
+          "Security": 470000,
+          "Containers": 556000,
+          "Other": 322000
+        }
+      },
+      "unitPriceIndex": {
+        "labels": [
+          "Jun 25",
+          "Jul 25",
+          "Aug 25",
+          "Sep 25",
+          "Oct 25",
+          "Nov 25",
+          "Dec 25",
+          "Jan 26",
+          "Feb 26",
+          "Mar 26",
+          "Apr 26",
+          "May 26*"
+        ],
+        "series": [
+          {
+            "name": "vCPU-hour",
+            "values": [
+              101,
+              100,
+              100,
+              99,
+              98,
+              99,
+              99,
+              100,
+              99,
+              98,
+              97,
+              96
+            ]
+          },
+          {
+            "name": "GB-month",
+            "values": [
+              102,
+              101,
+              100,
+              100,
+              99,
+              99,
+              99,
+              100,
+              99,
+              99,
+              98,
+              98
+            ]
+          },
+          {
+            "name": "GB-egress",
+            "values": [
+              100,
+              100,
+              101,
+              101,
+              101,
+              102,
+              101,
+              100,
+              101,
+              102,
+              103,
+              104
+            ]
+          }
+        ]
+      },
+      "clusterDetails": {
+        "Compute": {
+          "description": "Virtual Machines, VM Scale Sets, App Service, Functions, Batch, Dedicated Host",
+          "trend": [
+            820000,
+            845000,
+            870000,
+            905000,
+            925000,
+            940000,
+            985000,
+            1020000,
+            1080000,
+            1150000,
+            1210000,
+            1330000
+          ],
+          "meters": [
+            {
+              "meter": "Virtual Machines",
+              "quantity": 38000,
+              "unit": "hours",
+              "cost": 920000,
+              "deltaPercent": 3.4615384615384603
+            },
+            {
+              "meter": "Virtual Machines",
+              "quantity": 16500,
+              "unit": "hours",
+              "cost": 402000,
+              "deltaPercent": 0.8974358974358942
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample/resourceGroups/rg-grid/providers/Microsoft.Compute/virtualMachineScaleSets/sample-vmss",
+              "subscription": "sample-grid-analytics",
+              "region": "westeurope",
+              "mtdCost": 920000,
+              "deltaPercent": 3.4615384615384603,
+              "pricing": "Reservation",
+              "tags": "owner=Grid Technology,costCenter=GT-000",
+              "cause": "VM scale set expansion"
+            },
+            {
+              "id": "/subscriptions/sample-trading/resourceGroups/rg-risk/providers/Microsoft.Compute/virtualMachineScaleSets/sample-risk-vmss",
+              "subscription": "sample-risk-grid",
+              "region": "westeurope",
+              "mtdCost": 402000,
+              "deltaPercent": 0.8974358974358942,
+              "pricing": "Reservation",
+              "tags": "owner=Trading Risk,costCenter=TR-000",
+              "cause": "Added stress-test scenarios to risk grid"
+            }
+          ]
+        },
+        "Storage": {
+          "description": "Blob, ADLS, Files, Backup, Recovery Services, NetApp Files",
+          "trend": [
+            310000,
+            318000,
+            326000,
+            332000,
+            345000,
+            358000,
+            372000,
+            380000,
+            395000,
+            410000,
+            422000,
+            442000
+          ],
+          "meters": [
+            {
+              "meter": "Blob Storage",
+              "quantity": 320000,
+              "unit": "GB-month",
+              "cost": 142000,
+              "deltaPercent": -5.224719101123599
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample/resourceGroups/rg-data/providers/Microsoft.Storage/storageAccounts/samplelake",
+              "subscription": "sample-data-lake",
+              "region": "westeurope",
+              "mtdCost": 142000,
+              "deltaPercent": -5.224719101123599,
+              "pricing": "OnDemand",
+              "tags": "owner=Data Platform,costCenter=DP-000",
+              "cause": "Lifecycle policy moved data to cool tier"
+            }
+          ]
+        },
+        "Network": {
+          "description": "Bandwidth, VPN, ExpressRoute, Load Balancer, App Gateway, Front Door, Firewall",
+          "trend": [
+            185000,
+            192000,
+            188000,
+            196000,
+            205000,
+            215000,
+            224000,
+            232000,
+            244000,
+            255000,
+            268000,
+            281000
+          ],
+          "meters": [
+            {
+              "meter": "Bandwidth",
+              "quantity": 84000,
+              "unit": "GB",
+              "cost": 108000,
+              "deltaPercent": 15.000000000000002
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample/resourceGroups/rg-iot/providers/Microsoft.Network/sample-egress",
+              "subscription": "sample-smartmeter",
+              "region": "westeurope",
+              "mtdCost": 108000,
+              "deltaPercent": 15.000000000000002,
+              "pricing": "OnDemand",
+              "tags": "owner=Metering,costCenter=ME-000",
+              "cause": "Inter-region DR replication"
+            }
+          ]
+        },
+        "Database": {
+          "description": "Azure SQL, Cosmos DB, PostgreSQL, MySQL, Redis, Synapse SQL pools",
+          "trend": [
+            240000,
+            250000,
+            260000,
+            268000,
+            275000,
+            282000,
+            290000,
+            298000,
+            310000,
+            322000,
+            335000,
+            358000
+          ],
+          "meters": [
+            {
+              "meter": "Azure SQL Database",
+              "quantity": 1440,
+              "unit": "vCore hours",
+              "cost": 235000,
+              "deltaPercent": 7.156862745098036
+            },
+            {
+              "meter": "Azure SQL Database",
+              "quantity": 1320,
+              "unit": "vCore hours",
+              "cost": 138000,
+              "deltaPercent": -2.857142857142858
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample/resourceGroups/rg-billing/providers/Microsoft.Sql/servers/sample-sql/databases/sample-db",
+              "subscription": "sample-billing-platform",
+              "region": "westeurope",
+              "mtdCost": 235000,
+              "deltaPercent": 7.156862745098036,
+              "pricing": "OnDemand",
+              "tags": "owner=Distribution,costCenter=DV-000",
+              "cause": "Business Critical scale-up"
+            },
+            {
+              "id": "/subscriptions/sample-trading/resourceGroups/rg-marketdata/providers/Microsoft.Sql/servers/sample-md-sql/databases/ticks",
+              "subscription": "sample-market-data",
+              "region": "westeurope",
+              "mtdCost": 138000,
+              "deltaPercent": -2.857142857142858,
+              "pricing": "OnDemand",
+              "tags": "owner=Market Data,costCenter=MD-000",
+              "cause": "Right-sized tick history compute"
+            }
+          ]
+        },
+        "AI & Analytics": {
+          "description": "Azure OpenAI, Azure ML, Cognitive Services, Synapse Spark, Databricks, Fabric",
+          "trend": [
+            55000,
+            68000,
+            85000,
+            102000,
+            124000,
+            155000,
+            192000,
+            240000,
+            305000,
+            395000,
+            510000,
+            680000
+          ],
+          "meters": [
+            {
+              "meter": "Azure OpenAI Service",
+              "quantity": 1850000000,
+              "unit": "tokens",
+              "cost": 580000,
+              "deltaPercent": 4.230769230769238
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample/resourceGroups/rg-ai/providers/Microsoft.CognitiveServices/accounts/sample-openai",
+              "subscription": "sample-ai-foundry",
+              "region": "westeurope",
+              "mtdCost": 580000,
+              "deltaPercent": 4.230769230769238,
+              "pricing": "OnDemand",
+              "tags": "owner=Data and AI Platform,costCenter=AI-000",
+              "cause": "Customer-service agent rollout"
+            }
+          ]
+        },
+        "Security": {
+          "description": "Defender for Cloud, Sentinel, Key Vault, Entra premium SKUs",
+          "trend": [
+            125000,
+            128000,
+            130000,
+            132000,
+            135000,
+            138000,
+            142000,
+            145000,
+            148000,
+            152000,
+            156000,
+            162000
+          ],
+          "meters": [],
+          "resources": []
+        },
+        "Containers": {
+          "description": "AKS, Container Apps, Container Registry, Container Instances",
+          "trend": [
+            105000,
+            110000,
+            118000,
+            124000,
+            132000,
+            138000,
+            146000,
+            154000,
+            163000,
+            172000,
+            184000,
+            200000
+          ],
+          "meters": [],
+          "resources": []
+        },
+        "Other": {
+          "description": "Logic Apps, API Management, IoT, Marketplace, Support, untagged",
+          "trend": [
+            88000,
+            91000,
+            92000,
+            90000,
+            93000,
+            95000,
+            98000,
+            100000,
+            102000,
+            105000,
+            107000,
+            110000
+          ],
+          "meters": [],
+          "resources": []
+        }
+      },
+      "moversUp": [
+        {
+          "subscription": "sample-grid-analytics",
+          "owner": "Grid Technology",
+          "delta": 314000,
+          "deltaPercent": 31.150793650793652,
+          "driver": "Existing ML retraining workload"
+        },
+        {
+          "subscription": "sample-ai-foundry",
+          "owner": "Data and AI Platform",
+          "delta": 160000,
+          "deltaPercent": 38.095238095238095,
+          "driver": "Baseline token usage"
+        },
+        {
+          "subscription": "sample-smartmeter",
+          "owner": "Metering",
+          "delta": 26000,
+          "deltaPercent": 31.70731707317073,
+          "driver": "Baseline replication"
+        },
+        {
+          "subscription": "sample-billing-platform",
+          "owner": "Distribution",
+          "delta": 22000,
+          "deltaPercent": 6.267806267806268,
+          "driver": "Business Critical 8 vCore"
+        }
+      ],
+      "moversDown": [
+        {
+          "subscription": "sample-data-lake",
+          "owner": "Data Platform",
+          "delta": -36000,
+          "deltaPercent": -20.224719101123593,
+          "driver": "Hot tier storage"
+        }
+      ],
+      "anomalySummary": {
+        "labels": [
+          "Compute",
+          "AI & Analytics",
+          "Database",
+          "Storage",
+          "Network"
+        ],
+        "high": [
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "medium": [
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        "win": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "forecast": {
+        "labels": [
+          "Day 1",
+          "Day 2",
+          "Day 3",
+          "Day 4",
+          "Day 5",
+          "Day 6",
+          "Day 7",
+          "Day 8",
+          "Day 9",
+          "Day 10",
+          "Day 11",
+          "Day 12",
+          "Day 13",
+          "Day 14",
+          "Day 15",
+          "Day 16",
+          "Day 17",
+          "Day 18",
+          "Day 19",
+          "Day 20",
+          "Day 21",
+          "Day 22",
+          "Day 23",
+          "Day 24",
+          "Day 25",
+          "Day 26",
+          "Day 27",
+          "Day 28",
+          "Day 29",
+          "Day 30",
+          "Day 31",
+          "Day 32",
+          "Day 33",
+          "Day 34",
+          "Day 35",
+          "Day 36",
+          "Day 37",
+          "Day 38",
+          "Day 39",
+          "Day 40",
+          "Day 41",
+          "Day 42",
+          "Day 43",
+          "Day 44",
+          "Day 45"
+        ],
+        "actual": [
+          150000,
+          153000,
+          156000,
+          159000,
+          162000,
+          165000,
+          168000,
+          158400,
+          161400,
+          164400,
+          167400,
+          170400,
+          173400,
+          176400,
+          166800,
+          169800,
+          172800,
+          175800,
+          178800,
+          181800,
+          184800,
+          175200,
+          178200,
+          181200,
+          184200,
+          187200,
+          190200,
+          193200,
+          183600,
+          186600,
+          189600,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "forecast": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          186000,
+          187100,
+          188200,
+          189300,
+          190400,
+          191500,
+          192600,
+          193700,
+          194800,
+          195900,
+          197000,
+          198100,
+          199200,
+          200300,
+          201400
+        ],
+        "lower": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          182280,
+          182610,
+          182930,
+          183242,
+          183546,
+          183840,
+          184126,
+          184402,
+          184670,
+          184930,
+          185180,
+          185422,
+          185654,
+          185878,
+          186094
+        ],
+        "upper": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          189720,
+          191590,
+          193470,
+          195358,
+          197254,
+          199160,
+          201074,
+          202998,
+          204930,
+          206870,
+          208820,
+          210778,
+          212746,
+          214722,
+          216706
+        ]
+      },
+      "dataSources": {
+        "datasets": [
+          {
+            "dataset": "Cost and usage (FOCUS 1.0)",
+            "scope": "Billing account",
+            "frequency": "Daily / MTD",
+            "schema": "FOCUS"
+          },
+          {
+            "dataset": "ActualCost export",
+            "scope": "Billing account",
+            "frequency": "Daily",
+            "schema": "Azure native"
+          },
+          {
+            "dataset": "AmortizedCost export",
+            "scope": "Billing account",
+            "frequency": "Daily",
+            "schema": "Azure native"
+          },
+          {
+            "dataset": "Reservation / Savings Plan APIs",
+            "scope": "Billing / benefit scope",
+            "frequency": "Daily",
+            "schema": "Azure APIs"
+          },
+          {
+            "dataset": "Advisor / Monitor / Activity Log",
+            "scope": "Subscription",
+            "frequency": "Daily",
+            "schema": "Azure APIs"
+          }
+        ],
+        "fields": [
+          {
+            "field": "EffectiveCost / CostInBillingCurrency",
+            "usedFor": "Cost trend, commercial changes, rankings"
+          },
+          {
+            "field": "ListCost",
+            "usedFor": "Savings versus PayG"
+          },
+          {
+            "field": "ServiceName / MeterCategory",
+            "usedFor": "Cluster mapping"
+          },
+          {
+            "field": "ResourceId / ResourceGroup",
+            "usedFor": "Workload drilldown and root cause"
+          },
+          {
+            "field": "PricingModel / BenefitId",
+            "usedFor": "Commitment attribution"
+          },
+          {
+            "field": "TenantId / Tags / RBAC mapping",
+            "usedFor": "Tenant switching, owner and cost-center accountability"
+          }
+        ],
+        "architecture": "[Cost exports + Azure APIs] -> [Customer-owned storage/lakehouse] -> [Processing jobs] -> [Dashboard snapshot/API] -> [Web dashboard]"
+      },
+      "glossary": {
+        "clusters": [
+          {
+            "cluster": "Compute",
+            "includes": "Virtual Machines, VM Scale Sets, App Service, Functions, Batch, Dedicated Host"
+          },
+          {
+            "cluster": "Storage",
+            "includes": "Blob, ADLS, Files, Backup, Recovery Services, NetApp Files"
+          },
+          {
+            "cluster": "Network",
+            "includes": "Bandwidth, VPN, ExpressRoute, Load Balancer, App Gateway, Front Door, Firewall"
+          },
+          {
+            "cluster": "Database",
+            "includes": "Azure SQL, Cosmos DB, PostgreSQL, MySQL, Redis, Synapse SQL pools"
+          },
+          {
+            "cluster": "AI & Analytics",
+            "includes": "Azure OpenAI, Azure ML, Cognitive Services, Synapse Spark, Databricks, Fabric"
+          },
+          {
+            "cluster": "Security",
+            "includes": "Defender for Cloud, Sentinel, Key Vault, Entra premium SKUs"
+          },
+          {
+            "cluster": "Containers",
+            "includes": "AKS, Container Apps, Container Registry, Container Instances"
+          },
+          {
+            "cluster": "Other",
+            "includes": "Logic Apps, API Management, IoT, Marketplace, Support, untagged"
+          }
+        ],
+        "methodology": [
+          "Tenant views are pre-aggregated per Azure AD tenant; the 'all' view is the billing-account roll-up.",
+          "Anomalies: rolling 28-day median per subscription x service, z-score over 7-day window.",
+          "High severity: absolute delta above threshold and z-score >= 3.",
+          "Win: sustained cost decrease with attributable optimization action.",
+          "Actual cost is invoice-oriented; amortized/effective cost is preferred for trend reporting.",
+          "FOCUS provides normalized EffectiveCost, BilledCost, ContractedCost, and ListCost fields."
+        ]
+      },
+      "dataQuality": {
+        "costRows": 14,
+        "advisorRecommendations": 5,
+        "monitorFindings": 4,
+        "activityLogFindings": 4,
+        "notes": [
+          "Sample data is synthetic.",
+          "Commitments, unit-price index, data sources and glossary are billing-account scoped and shared across tenant views.",
+          "Production ingestion should use customer-owned storage, RBAC, and secret management."
+        ]
       }
-    ],
-    "recommendations": [
-      {
-        "title": "Buy 3-year Compute Savings Plan",
-        "scope": "sample-prod",
-        "annualSavings": 168000
+    },
+    "sample-prod": {
+      "period": {
+        "id": "sample-current-sample-prod",
+        "label": "Synthetic May 2026 · sample-prod"
+      },
+      "summary": {
+        "currentCost": 1985000,
+        "previousCost": 1615000,
+        "deltaMonth": 370000,
+        "deltaQuarterPercent": 29.711928111732217,
+        "commitmentCoveragePercent": 61.8,
+        "annualSavingsPotential": 462800,
+        "compare": {
+          "month": {
+            "label": "vs previous month",
+            "current": 1985000,
+            "previous": 1615000,
+            "delta": 370000,
+            "deltaPercent": 22.910216718266255
+          },
+          "quarter": {
+            "label": "vs previous quarter",
+            "current": 6870405,
+            "previous": 5296664,
+            "delta": 1573741,
+            "deltaPercent": 29.711928111732217
+          },
+          "year": {
+            "label": "vs same month last year",
+            "current": 2554117,
+            "previous": 1271857,
+            "delta": 1282260,
+            "deltaPercent": 100.81793786565628
+          }
+        }
+      },
+      "commercialChanges": [
+        {
+          "service": "Virtual Machines",
+          "cluster": "Compute",
+          "delta": 180000,
+          "deltaPercent": 24.324324324324326,
+          "currentCost": 920000,
+          "previousCost": 740000,
+          "driver": "Existing ML retraining workload"
+        },
+        {
+          "service": "Azure OpenAI Service",
+          "cluster": "AI & Analytics",
+          "delta": 160000,
+          "deltaPercent": 38.095238095238095,
+          "currentCost": 580000,
+          "previousCost": 420000,
+          "driver": "Baseline token usage"
+        },
+        {
+          "service": "Azure SQL Database",
+          "cluster": "Database",
+          "delta": 40000,
+          "deltaPercent": 20.51282051282051,
+          "currentCost": 235000,
+          "previousCost": 195000,
+          "driver": "Business Critical 8 vCore"
+        },
+        {
+          "service": "Blob Storage",
+          "cluster": "Storage",
+          "delta": -36000,
+          "deltaPercent": -20.224719101123593,
+          "currentCost": 142000,
+          "previousCost": 178000,
+          "driver": "Hot tier storage"
+        },
+        {
+          "service": "Bandwidth",
+          "cluster": "Network",
+          "delta": 26000,
+          "deltaPercent": 31.70731707317073,
+          "currentCost": 108000,
+          "previousCost": 82000,
+          "driver": "Baseline replication"
+        }
+      ],
+      "serviceClusters": [
+        {
+          "name": "Compute",
+          "cost": 920000,
+          "previousCost": 740000,
+          "deltaMonth": 180000,
+          "sharePercent": 46.34760705289673
+        },
+        {
+          "name": "AI & Analytics",
+          "cost": 580000,
+          "previousCost": 420000,
+          "deltaMonth": 160000,
+          "sharePercent": 29.219143576826195
+        },
+        {
+          "name": "Database",
+          "cost": 235000,
+          "previousCost": 195000,
+          "deltaMonth": 40000,
+          "sharePercent": 11.838790931989925
+        },
+        {
+          "name": "Storage",
+          "cost": 142000,
+          "previousCost": 178000,
+          "deltaMonth": -36000,
+          "sharePercent": 7.153652392947103
+        },
+        {
+          "name": "Network",
+          "cost": 108000,
+          "previousCost": 82000,
+          "deltaMonth": 26000,
+          "sharePercent": 5.44080604534005
+        }
+      ],
+      "subscriptions": [
+        {
+          "name": "sample-grid-analytics",
+          "tenant": "sample-prod",
+          "owner": "Grid Technology",
+          "costCenter": "GT-000",
+          "currentCost": 920000,
+          "averageSixMonths": 836333.3333333334,
+          "deltaVsAverage": 83666.66666666663,
+          "spark": [
+            662400,
+            690000,
+            717600,
+            736000,
+            763600,
+            791200,
+            828000,
+            855600,
+            883200,
+            920000,
+            740000,
+            920000
+          ],
+          "status": "watch"
+        },
+        {
+          "name": "sample-ai-foundry",
+          "tenant": "sample-prod",
+          "owner": "Data and AI Platform",
+          "costCenter": "AI-000",
+          "currentCost": 580000,
+          "averageSixMonths": 519500,
+          "deltaVsAverage": 60500,
+          "spark": [
+            417600,
+            435000,
+            452400,
+            464000,
+            481400,
+            498800,
+            522000,
+            539400,
+            556800,
+            580000,
+            420000,
+            580000
+          ],
+          "status": "watch"
+        },
+        {
+          "name": "sample-billing-platform",
+          "tenant": "sample-prod",
+          "owner": "Distribution",
+          "costCenter": "DV-000",
+          "currentCost": 235000,
+          "averageSixMonths": 214625,
+          "deltaVsAverage": 20375,
+          "spark": [
+            169200,
+            176250,
+            183300,
+            188000,
+            195050,
+            202100,
+            211500,
+            218550,
+            225600,
+            235000,
+            195000,
+            235000
+          ],
+          "status": "watch"
+        },
+        {
+          "name": "sample-data-lake",
+          "tenant": "sample-prod",
+          "owner": "Data Platform",
+          "costCenter": "DP-000",
+          "currentCost": 142000,
+          "averageSixMonths": 139716.66666666666,
+          "deltaVsAverage": 2283.333333333343,
+          "spark": [
+            102240,
+            106500,
+            110760,
+            113600,
+            117860,
+            122120,
+            127800,
+            132060,
+            136320,
+            142000,
+            178000,
+            142000
+          ],
+          "status": "watch"
+        },
+        {
+          "name": "sample-smartmeter",
+          "tenant": "sample-prod",
+          "owner": "Metering",
+          "costCenter": "ME-000",
+          "currentCost": 108000,
+          "averageSixMonths": 97366.66666666667,
+          "deltaVsAverage": 10633.333333333328,
+          "spark": [
+            77760,
+            81000,
+            84240,
+            86400,
+            89640,
+            92880,
+            97200,
+            100440,
+            103680,
+            108000,
+            82000,
+            108000
+          ],
+          "status": "watch"
+        }
+      ],
+      "commitments": {
+        "coverage": {
+          "reservationCoveragePercent": 61.8,
+          "savingsPlanCoveragePercent": 48.5
+        },
+        "reservationCoveragePercent": 61.8,
+        "savingsPlanUtilizationPercent": 94.2,
+        "expiring": [
+          {
+            "name": "sample-vm-reservation-weu",
+            "type": "Reservation",
+            "expiresOn": "2026-07-01",
+            "utilizationPercent": 88.4
+          },
+          {
+            "name": "sample-compute-savings-plan",
+            "type": "SavingsPlan",
+            "expiresOn": "2026-08-21",
+            "utilizationPercent": 96.5
+          }
+        ],
+        "recommendations": [
+          {
+            "title": "Buy 3-year Compute Savings Plan",
+            "scope": "sample-prod",
+            "annualSavings": 168000
+          }
+        ],
+        "savings12m": [
+          78000,
+          82000,
+          86000,
+          92000,
+          98000,
+          106000,
+          114000,
+          122000,
+          131000,
+          140000,
+          149000,
+          158000
+        ],
+        "commitmentMix": [
+          {
+            "name": "VM Reservations",
+            "hourly": 28800
+          },
+          {
+            "name": "SQL Reservations",
+            "hourly": 4200
+          },
+          {
+            "name": "Savings Plan Compute",
+            "hourly": 32400
+          },
+          {
+            "name": "App Service Reservations",
+            "hourly": 3600
+          }
+        ],
+        "purchaseRecommendations": [
+          {
+            "title": "Buy 3-year Compute Savings Plan",
+            "scope": "sample-prod",
+            "annualSavings": 168000
+          },
+          {
+            "title": "Downsize ExpressRoute circuit after utilization review",
+            "scope": "sample-networking",
+            "upfront": 0,
+            "annualSavings": 170000,
+            "roi": "High"
+          },
+          {
+            "title": "Commit Azure OpenAI PTU for stable GPT-4o usage",
+            "scope": "sample-ai-foundry",
+            "upfront": 0,
+            "annualSavings": 96000,
+            "roi": "High"
+          }
+        ]
+      },
+      "anomalies": [
+        {
+          "title": "Azure OpenAI token usage increased",
+          "severity": "high",
+          "scope": "sample-ai-foundry",
+          "owner": "Data and AI Platform",
+          "delta": 0,
+          "rootCauseCandidate": "New customer-service deployments increased token usage.",
+          "relatedMetric": "tokens",
+          "recommendation": "Commit Azure OpenAI PTU for stable GPT-4o usage"
+        },
+        {
+          "title": "SQL database scaled up",
+          "severity": "medium",
+          "scope": "sample-billing-platform",
+          "owner": "Distribution",
+          "delta": 0,
+          "rootCauseCandidate": "Database SKU changed from Business Critical 8 vCore to 16 vCore.",
+          "relatedMetric": "cpu_percent",
+          "recommendation": "Right-size SQL database from 16 to 12 vCore"
+        },
+        {
+          "title": "Inter-region egress increased",
+          "severity": "high",
+          "scope": "sample-smartmeter",
+          "owner": "Metering",
+          "delta": 0,
+          "rootCauseCandidate": "DR replication path increased traffic between regions.",
+          "relatedMetric": "n/a",
+          "recommendation": "Review with workload owner"
+        },
+        {
+          "title": "Blob Storage cost decreased",
+          "severity": "win",
+          "scope": "sample-data-lake",
+          "owner": "Data Platform",
+          "delta": -36000,
+          "rootCauseCandidate": "Hot tier storage",
+          "relatedMetric": "cost",
+          "recommendation": "Roll out the optimization pattern to comparable workloads."
+        }
+      ],
+      "recommendations": [
+        {
+          "title": "Downsize ExpressRoute circuit after utilization review",
+          "scope": "sample-networking",
+          "tenant": "sample-prod",
+          "owner": "Network Platform",
+          "cluster": "Network",
+          "source": "Azure Monitor + custom rule",
+          "effort": "Medium",
+          "annualSavings": 170000
+        },
+        {
+          "title": "Buy 3-year Compute Savings Plan",
+          "scope": "sample-prod",
+          "tenant": "sample-prod",
+          "owner": "Cloud Platform",
+          "cluster": "Compute",
+          "source": "Savings Plan Recommendations API",
+          "effort": "Low",
+          "annualSavings": 168000
+        },
+        {
+          "title": "Commit Azure OpenAI PTU for stable GPT-4o usage",
+          "scope": "sample-ai-foundry",
+          "tenant": "sample-prod",
+          "owner": "Data and AI Platform",
+          "cluster": "AI & Analytics",
+          "source": "Custom FinOps rule",
+          "effort": "Medium",
+          "annualSavings": 96000
+        },
+        {
+          "title": "Right-size SQL database from 16 to 12 vCore",
+          "scope": "sample-billing-platform",
+          "tenant": "sample-prod",
+          "owner": "Distribution",
+          "cluster": "Database",
+          "source": "Azure Advisor",
+          "effort": "Low",
+          "annualSavings": 28800
+        }
+      ],
+      "trend": {
+        "labels": [
+          "Jun 25",
+          "Jul 25",
+          "Aug 25",
+          "Sep 25",
+          "Oct 25",
+          "Nov 25",
+          "Dec 25",
+          "Jan 26",
+          "Feb 26",
+          "Mar 26",
+          "Apr 26",
+          "May 26*"
+        ],
+        "series": [
+          {
+            "name": "Compute",
+            "values": [
+              570651,
+              588048,
+              605446,
+              629803,
+              643722,
+              654160,
+              685477,
+              709834,
+              751589,
+              800303,
+              842057,
+              925567
+            ]
+          },
+          {
+            "name": "Storage",
+            "values": [
+              310000,
+              318000,
+              326000,
+              332000,
+              345000,
+              358000,
+              372000,
+              380000,
+              395000,
+              410000,
+              422000,
+              442000
+            ]
+          },
+          {
+            "name": "Network",
+            "values": [
+              185000,
+              192000,
+              188000,
+              196000,
+              205000,
+              215000,
+              224000,
+              232000,
+              244000,
+              255000,
+              268000,
+              281000
+            ]
+          },
+          {
+            "name": "Database",
+            "values": [
+              151206,
+              157507,
+              163807,
+              168847,
+              173257,
+              177668,
+              182708,
+              187748,
+              195308,
+              202869,
+              211059,
+              225550
+            ]
+          },
+          {
+            "name": "AI & Analytics",
+            "values": [
+              55000,
+              68000,
+              85000,
+              102000,
+              124000,
+              155000,
+              192000,
+              240000,
+              305000,
+              395000,
+              510000,
+              680000
+            ]
+          },
+          {
+            "name": "Security",
+            "values": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "Containers",
+            "values": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "Other",
+            "values": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "anomalies": [
+          {
+            "index": 8,
+            "label": "Feb: ingestion spike"
+          },
+          {
+            "index": 10,
+            "label": "Apr: AI rollout"
+          },
+          {
+            "index": 11,
+            "label": "May: network over-provisioning"
+          }
+        ]
+      },
+      "waterfall": [
+        {
+          "label": "Previous month",
+          "value": 1615000,
+          "type": "total"
+        },
+        {
+          "label": "Virtual Machines",
+          "value": 180000,
+          "type": "up"
+        },
+        {
+          "label": "Azure OpenAI Service",
+          "value": 160000,
+          "type": "up"
+        },
+        {
+          "label": "Azure SQL Database",
+          "value": 40000,
+          "type": "up"
+        },
+        {
+          "label": "Blob Storage",
+          "value": -36000,
+          "type": "down"
+        },
+        {
+          "label": "Bandwidth",
+          "value": 26000,
+          "type": "up"
+        },
+        {
+          "label": "Current month",
+          "value": 1985000,
+          "type": "total"
+        }
+      ],
+      "quarterRollup": {
+        "previous": {
+          "Compute": 2146900,
+          "Storage": 1147000,
+          "Network": 700000,
+          "Database": 565764,
+          "AI & Analytics": 737000,
+          "Security": 0,
+          "Containers": 0,
+          "Other": 0
+        },
+        "current": {
+          "Compute": 2567927,
+          "Storage": 1274000,
+          "Network": 804000,
+          "Database": 639478,
+          "AI & Analytics": 1585000,
+          "Security": 0,
+          "Containers": 0,
+          "Other": 0
+        }
+      },
+      "unitPriceIndex": {
+        "labels": [
+          "Jun 25",
+          "Jul 25",
+          "Aug 25",
+          "Sep 25",
+          "Oct 25",
+          "Nov 25",
+          "Dec 25",
+          "Jan 26",
+          "Feb 26",
+          "Mar 26",
+          "Apr 26",
+          "May 26*"
+        ],
+        "series": [
+          {
+            "name": "vCPU-hour",
+            "values": [
+              101,
+              100,
+              100,
+              99,
+              98,
+              99,
+              99,
+              100,
+              99,
+              98,
+              97,
+              96
+            ]
+          },
+          {
+            "name": "GB-month",
+            "values": [
+              102,
+              101,
+              100,
+              100,
+              99,
+              99,
+              99,
+              100,
+              99,
+              99,
+              98,
+              98
+            ]
+          },
+          {
+            "name": "GB-egress",
+            "values": [
+              100,
+              100,
+              101,
+              101,
+              101,
+              102,
+              101,
+              100,
+              101,
+              102,
+              103,
+              104
+            ]
+          }
+        ]
+      },
+      "clusterDetails": {
+        "Compute": {
+          "description": "Virtual Machines, VM Scale Sets, App Service, Functions, Batch, Dedicated Host",
+          "trend": [
+            570651,
+            588048,
+            605446,
+            629803,
+            643722,
+            654160,
+            685477,
+            709834,
+            751589,
+            800303,
+            842057,
+            925567
+          ],
+          "meters": [
+            {
+              "meter": "Virtual Machines",
+              "quantity": 38000,
+              "unit": "hours",
+              "cost": 920000,
+              "deltaPercent": 3.4615384615384603
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample/resourceGroups/rg-grid/providers/Microsoft.Compute/virtualMachineScaleSets/sample-vmss",
+              "subscription": "sample-grid-analytics",
+              "region": "westeurope",
+              "mtdCost": 920000,
+              "deltaPercent": 3.4615384615384603,
+              "pricing": "Reservation",
+              "tags": "owner=Grid Technology,costCenter=GT-000",
+              "cause": "VM scale set expansion"
+            }
+          ]
+        },
+        "Storage": {
+          "description": "Blob, ADLS, Files, Backup, Recovery Services, NetApp Files",
+          "trend": [
+            310000,
+            318000,
+            326000,
+            332000,
+            345000,
+            358000,
+            372000,
+            380000,
+            395000,
+            410000,
+            422000,
+            442000
+          ],
+          "meters": [
+            {
+              "meter": "Blob Storage",
+              "quantity": 320000,
+              "unit": "GB-month",
+              "cost": 142000,
+              "deltaPercent": -5.224719101123599
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample/resourceGroups/rg-data/providers/Microsoft.Storage/storageAccounts/samplelake",
+              "subscription": "sample-data-lake",
+              "region": "westeurope",
+              "mtdCost": 142000,
+              "deltaPercent": -5.224719101123599,
+              "pricing": "OnDemand",
+              "tags": "owner=Data Platform,costCenter=DP-000",
+              "cause": "Lifecycle policy moved data to cool tier"
+            }
+          ]
+        },
+        "Network": {
+          "description": "Bandwidth, VPN, ExpressRoute, Load Balancer, App Gateway, Front Door, Firewall",
+          "trend": [
+            185000,
+            192000,
+            188000,
+            196000,
+            205000,
+            215000,
+            224000,
+            232000,
+            244000,
+            255000,
+            268000,
+            281000
+          ],
+          "meters": [
+            {
+              "meter": "Bandwidth",
+              "quantity": 84000,
+              "unit": "GB",
+              "cost": 108000,
+              "deltaPercent": 15.000000000000002
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample/resourceGroups/rg-iot/providers/Microsoft.Network/sample-egress",
+              "subscription": "sample-smartmeter",
+              "region": "westeurope",
+              "mtdCost": 108000,
+              "deltaPercent": 15.000000000000002,
+              "pricing": "OnDemand",
+              "tags": "owner=Metering,costCenter=ME-000",
+              "cause": "Inter-region DR replication"
+            }
+          ]
+        },
+        "Database": {
+          "description": "Azure SQL, Cosmos DB, PostgreSQL, MySQL, Redis, Synapse SQL pools",
+          "trend": [
+            151206,
+            157507,
+            163807,
+            168847,
+            173257,
+            177668,
+            182708,
+            187748,
+            195308,
+            202869,
+            211059,
+            225550
+          ],
+          "meters": [
+            {
+              "meter": "Azure SQL Database",
+              "quantity": 1440,
+              "unit": "vCore hours",
+              "cost": 235000,
+              "deltaPercent": 7.156862745098036
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample/resourceGroups/rg-billing/providers/Microsoft.Sql/servers/sample-sql/databases/sample-db",
+              "subscription": "sample-billing-platform",
+              "region": "westeurope",
+              "mtdCost": 235000,
+              "deltaPercent": 7.156862745098036,
+              "pricing": "OnDemand",
+              "tags": "owner=Distribution,costCenter=DV-000",
+              "cause": "Business Critical scale-up"
+            }
+          ]
+        },
+        "AI & Analytics": {
+          "description": "Azure OpenAI, Azure ML, Cognitive Services, Synapse Spark, Databricks, Fabric",
+          "trend": [
+            55000,
+            68000,
+            85000,
+            102000,
+            124000,
+            155000,
+            192000,
+            240000,
+            305000,
+            395000,
+            510000,
+            680000
+          ],
+          "meters": [
+            {
+              "meter": "Azure OpenAI Service",
+              "quantity": 1850000000,
+              "unit": "tokens",
+              "cost": 580000,
+              "deltaPercent": 4.230769230769238
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample/resourceGroups/rg-ai/providers/Microsoft.CognitiveServices/accounts/sample-openai",
+              "subscription": "sample-ai-foundry",
+              "region": "westeurope",
+              "mtdCost": 580000,
+              "deltaPercent": 4.230769230769238,
+              "pricing": "OnDemand",
+              "tags": "owner=Data and AI Platform,costCenter=AI-000",
+              "cause": "Customer-service agent rollout"
+            }
+          ]
+        },
+        "Security": {
+          "description": "Defender for Cloud, Sentinel, Key Vault, Entra premium SKUs",
+          "trend": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "meters": [],
+          "resources": []
+        },
+        "Containers": {
+          "description": "AKS, Container Apps, Container Registry, Container Instances",
+          "trend": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "meters": [],
+          "resources": []
+        },
+        "Other": {
+          "description": "Logic Apps, API Management, IoT, Marketplace, Support, untagged",
+          "trend": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "meters": [],
+          "resources": []
+        }
+      },
+      "moversUp": [
+        {
+          "subscription": "sample-grid-analytics",
+          "owner": "Grid Technology",
+          "delta": 180000,
+          "deltaPercent": 24.324324324324326,
+          "driver": "Existing ML retraining workload"
+        },
+        {
+          "subscription": "sample-ai-foundry",
+          "owner": "Data and AI Platform",
+          "delta": 160000,
+          "deltaPercent": 38.095238095238095,
+          "driver": "Baseline token usage"
+        },
+        {
+          "subscription": "sample-billing-platform",
+          "owner": "Distribution",
+          "delta": 40000,
+          "deltaPercent": 20.51282051282051,
+          "driver": "Business Critical 8 vCore"
+        },
+        {
+          "subscription": "sample-smartmeter",
+          "owner": "Metering",
+          "delta": 26000,
+          "deltaPercent": 31.70731707317073,
+          "driver": "Baseline replication"
+        }
+      ],
+      "moversDown": [
+        {
+          "subscription": "sample-data-lake",
+          "owner": "Data Platform",
+          "delta": -36000,
+          "deltaPercent": -20.224719101123593,
+          "driver": "Hot tier storage"
+        }
+      ],
+      "anomalySummary": {
+        "labels": [
+          "Compute",
+          "AI & Analytics",
+          "Database",
+          "Storage",
+          "Network"
+        ],
+        "high": [
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "medium": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "win": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "forecast": {
+        "labels": [
+          "Day 1",
+          "Day 2",
+          "Day 3",
+          "Day 4",
+          "Day 5",
+          "Day 6",
+          "Day 7",
+          "Day 8",
+          "Day 9",
+          "Day 10",
+          "Day 11",
+          "Day 12",
+          "Day 13",
+          "Day 14",
+          "Day 15",
+          "Day 16",
+          "Day 17",
+          "Day 18",
+          "Day 19",
+          "Day 20",
+          "Day 21",
+          "Day 22",
+          "Day 23",
+          "Day 24",
+          "Day 25",
+          "Day 26",
+          "Day 27",
+          "Day 28",
+          "Day 29",
+          "Day 30",
+          "Day 31",
+          "Day 32",
+          "Day 33",
+          "Day 34",
+          "Day 35",
+          "Day 36",
+          "Day 37",
+          "Day 38",
+          "Day 39",
+          "Day 40",
+          "Day 41",
+          "Day 42",
+          "Day 43",
+          "Day 44",
+          "Day 45"
+        ],
+        "actual": [
+          117921,
+          120279,
+          122638,
+          124996,
+          127354,
+          129713,
+          132071,
+          124524,
+          126883,
+          129241,
+          131600,
+          133958,
+          136316,
+          138675,
+          131128,
+          133486,
+          135845,
+          138203,
+          140562,
+          142920,
+          145278,
+          137731,
+          140090,
+          142448,
+          144807,
+          147165,
+          149524,
+          151882,
+          144335,
+          146693,
+          149052,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "forecast": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          146222,
+          147087,
+          147951,
+          148816,
+          149681,
+          150546,
+          151410,
+          152275,
+          153140,
+          154005,
+          154869,
+          155734,
+          156599,
+          157464,
+          158328
+        ],
+        "lower": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          143297,
+          143556,
+          143809,
+          144054,
+          144292,
+          144524,
+          144748,
+          144966,
+          145177,
+          145380,
+          145577,
+          145767,
+          145950,
+          146126,
+          146295
+        ],
+        "upper": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          149146,
+          150617,
+          152094,
+          153578,
+          155069,
+          156567,
+          158072,
+          159584,
+          161103,
+          162629,
+          164161,
+          165701,
+          167248,
+          168801,
+          170361
+        ]
+      },
+      "dataSources": {
+        "datasets": [
+          {
+            "dataset": "Cost and usage (FOCUS 1.0)",
+            "scope": "Billing account",
+            "frequency": "Daily / MTD",
+            "schema": "FOCUS"
+          },
+          {
+            "dataset": "ActualCost export",
+            "scope": "Billing account",
+            "frequency": "Daily",
+            "schema": "Azure native"
+          },
+          {
+            "dataset": "AmortizedCost export",
+            "scope": "Billing account",
+            "frequency": "Daily",
+            "schema": "Azure native"
+          },
+          {
+            "dataset": "Reservation / Savings Plan APIs",
+            "scope": "Billing / benefit scope",
+            "frequency": "Daily",
+            "schema": "Azure APIs"
+          },
+          {
+            "dataset": "Advisor / Monitor / Activity Log",
+            "scope": "Subscription",
+            "frequency": "Daily",
+            "schema": "Azure APIs"
+          }
+        ],
+        "fields": [
+          {
+            "field": "EffectiveCost / CostInBillingCurrency",
+            "usedFor": "Cost trend, commercial changes, rankings"
+          },
+          {
+            "field": "ListCost",
+            "usedFor": "Savings versus PayG"
+          },
+          {
+            "field": "ServiceName / MeterCategory",
+            "usedFor": "Cluster mapping"
+          },
+          {
+            "field": "ResourceId / ResourceGroup",
+            "usedFor": "Workload drilldown and root cause"
+          },
+          {
+            "field": "PricingModel / BenefitId",
+            "usedFor": "Commitment attribution"
+          },
+          {
+            "field": "TenantId / Tags / RBAC mapping",
+            "usedFor": "Tenant switching, owner and cost-center accountability"
+          }
+        ],
+        "architecture": "[Cost exports + Azure APIs] -> [Customer-owned storage/lakehouse] -> [Processing jobs] -> [Dashboard snapshot/API] -> [Web dashboard]"
+      },
+      "glossary": {
+        "clusters": [
+          {
+            "cluster": "Compute",
+            "includes": "Virtual Machines, VM Scale Sets, App Service, Functions, Batch, Dedicated Host"
+          },
+          {
+            "cluster": "Storage",
+            "includes": "Blob, ADLS, Files, Backup, Recovery Services, NetApp Files"
+          },
+          {
+            "cluster": "Network",
+            "includes": "Bandwidth, VPN, ExpressRoute, Load Balancer, App Gateway, Front Door, Firewall"
+          },
+          {
+            "cluster": "Database",
+            "includes": "Azure SQL, Cosmos DB, PostgreSQL, MySQL, Redis, Synapse SQL pools"
+          },
+          {
+            "cluster": "AI & Analytics",
+            "includes": "Azure OpenAI, Azure ML, Cognitive Services, Synapse Spark, Databricks, Fabric"
+          },
+          {
+            "cluster": "Security",
+            "includes": "Defender for Cloud, Sentinel, Key Vault, Entra premium SKUs"
+          },
+          {
+            "cluster": "Containers",
+            "includes": "AKS, Container Apps, Container Registry, Container Instances"
+          },
+          {
+            "cluster": "Other",
+            "includes": "Logic Apps, API Management, IoT, Marketplace, Support, untagged"
+          }
+        ],
+        "methodology": [
+          "Tenant views are pre-aggregated per Azure AD tenant; the 'all' view is the billing-account roll-up.",
+          "Anomalies: rolling 28-day median per subscription x service, z-score over 7-day window.",
+          "High severity: absolute delta above threshold and z-score >= 3.",
+          "Win: sustained cost decrease with attributable optimization action.",
+          "Actual cost is invoice-oriented; amortized/effective cost is preferred for trend reporting.",
+          "FOCUS provides normalized EffectiveCost, BilledCost, ContractedCost, and ListCost fields."
+        ]
+      },
+      "dataQuality": {
+        "costRows": 10,
+        "advisorRecommendations": 4,
+        "monitorFindings": 4,
+        "activityLogFindings": 3,
+        "notes": [
+          "Sample data is synthetic.",
+          "Commitments, unit-price index, data sources and glossary are billing-account scoped and shared across tenant views.",
+          "Production ingestion should use customer-owned storage, RBAC, and secret management."
+        ]
       }
-    ]
-  },
-  "anomalies": [
-    {
-      "title": "Azure OpenAI token usage increased",
-      "severity": "high",
-      "scope": "sample-ai-foundry",
-      "rootCauseCandidate": "New customer-service deployments increased token usage.",
-      "relatedMetric": "tokens"
     },
-    {
-      "title": "SQL database scaled up",
-      "severity": "medium",
-      "scope": "sample-billing-platform",
-      "rootCauseCandidate": "Database SKU changed from Business Critical 8 vCore to 16 vCore.",
-      "relatedMetric": "cpu_percent"
-    },
-    {
-      "title": "Inter-region egress increased",
-      "severity": "high",
-      "scope": "sample-smartmeter",
-      "rootCauseCandidate": "DR replication path increased traffic between regions.",
-      "relatedMetric": "n/a"
+    "sample-trading": {
+      "period": {
+        "id": "sample-current-sample-trading",
+        "label": "Synthetic May 2026 · sample-trading"
+      },
+      "summary": {
+        "currentCost": 540000,
+        "previousCost": 424000,
+        "deltaMonth": 116000,
+        "deltaQuarterPercent": 17.889676432062068,
+        "commitmentCoveragePercent": 61.8,
+        "annualSavingsPotential": 84000,
+        "compare": {
+          "month": {
+            "label": "vs previous month",
+            "current": 540000,
+            "previous": 424000,
+            "delta": 116000,
+            "deltaPercent": 27.358490566037734
+          },
+          "quarter": {
+            "label": "vs previous quarter",
+            "current": 1497595,
+            "previous": 1270336,
+            "delta": 227259,
+            "deltaPercent": 17.889676432062068
+          },
+          "year": {
+            "label": "vs same month last year",
+            "current": 536883,
+            "previous": 338143,
+            "delta": 198740,
+            "deltaPercent": 58.773950665842555
+          }
+        }
+      },
+      "commercialChanges": [
+        {
+          "service": "Virtual Machines",
+          "cluster": "Compute",
+          "delta": 134000,
+          "deltaPercent": 50,
+          "currentCost": 402000,
+          "previousCost": 268000,
+          "driver": "Intraday risk simulation grid"
+        },
+        {
+          "service": "Azure SQL Database",
+          "cluster": "Database",
+          "delta": -18000,
+          "deltaPercent": -11.538461538461538,
+          "currentCost": 138000,
+          "previousCost": 156000,
+          "driver": "Tick history store"
+        }
+      ],
+      "serviceClusters": [
+        {
+          "name": "Compute",
+          "cost": 402000,
+          "previousCost": 268000,
+          "deltaMonth": 134000,
+          "sharePercent": 74.44444444444444
+        },
+        {
+          "name": "Database",
+          "cost": 138000,
+          "previousCost": 156000,
+          "deltaMonth": -18000,
+          "sharePercent": 25.555555555555554
+        }
+      ],
+      "subscriptions": [
+        {
+          "name": "sample-risk-grid",
+          "tenant": "sample-trading",
+          "owner": "Trading Risk",
+          "costCenter": "TR-000",
+          "currentCost": 402000,
+          "averageSixMonths": 356216.6666666667,
+          "deltaVsAverage": 45783.333333333314,
+          "spark": [
+            289440,
+            301500,
+            313560,
+            321600,
+            333660,
+            345720,
+            361800,
+            373860,
+            385920,
+            402000,
+            268000,
+            402000
+          ],
+          "status": "watch"
+        },
+        {
+          "name": "sample-market-data",
+          "tenant": "sample-trading",
+          "owner": "Market Data",
+          "costCenter": "MD-000",
+          "currentCost": 138000,
+          "averageSixMonths": 132950,
+          "deltaVsAverage": 5050,
+          "spark": [
+            99360,
+            103500,
+            107640,
+            110400,
+            114540,
+            118680,
+            124200,
+            128340,
+            132480,
+            138000,
+            156000,
+            138000
+          ],
+          "status": "watch"
+        }
+      ],
+      "commitments": {
+        "coverage": {
+          "reservationCoveragePercent": 61.8,
+          "savingsPlanCoveragePercent": 48.5
+        },
+        "reservationCoveragePercent": 61.8,
+        "savingsPlanUtilizationPercent": 94.2,
+        "expiring": [
+          {
+            "name": "sample-vm-reservation-weu",
+            "type": "Reservation",
+            "expiresOn": "2026-07-01",
+            "utilizationPercent": 88.4
+          },
+          {
+            "name": "sample-compute-savings-plan",
+            "type": "SavingsPlan",
+            "expiresOn": "2026-08-21",
+            "utilizationPercent": 96.5
+          }
+        ],
+        "recommendations": [
+          {
+            "title": "Buy 3-year Compute Savings Plan",
+            "scope": "sample-prod",
+            "annualSavings": 168000
+          }
+        ],
+        "savings12m": [
+          78000,
+          82000,
+          86000,
+          92000,
+          98000,
+          106000,
+          114000,
+          122000,
+          131000,
+          140000,
+          149000,
+          158000
+        ],
+        "commitmentMix": [
+          {
+            "name": "VM Reservations",
+            "hourly": 28800
+          },
+          {
+            "name": "SQL Reservations",
+            "hourly": 4200
+          },
+          {
+            "name": "Savings Plan Compute",
+            "hourly": 32400
+          },
+          {
+            "name": "App Service Reservations",
+            "hourly": 3600
+          }
+        ],
+        "purchaseRecommendations": [
+          {
+            "title": "Buy 3-year Compute Savings Plan",
+            "scope": "sample-prod",
+            "annualSavings": 168000
+          },
+          {
+            "title": "Downsize ExpressRoute circuit after utilization review",
+            "scope": "sample-networking",
+            "upfront": 0,
+            "annualSavings": 170000,
+            "roi": "High"
+          },
+          {
+            "title": "Commit Azure OpenAI PTU for stable GPT-4o usage",
+            "scope": "sample-ai-foundry",
+            "upfront": 0,
+            "annualSavings": 96000,
+            "roi": "High"
+          }
+        ]
+      },
+      "anomalies": [
+        {
+          "title": "Risk simulation grid scaled out",
+          "severity": "medium",
+          "scope": "sample-risk-grid",
+          "owner": "Trading Risk",
+          "delta": 0,
+          "rootCauseCandidate": "Added stress-test scenarios increased VM scale set hours.",
+          "relatedMetric": "cpu_percent",
+          "recommendation": "Buy 1-year VM reservation for risk simulation grid"
+        },
+        {
+          "title": "Azure SQL Database cost decreased",
+          "severity": "win",
+          "scope": "sample-market-data",
+          "owner": "Market Data",
+          "delta": -18000,
+          "rootCauseCandidate": "Tick history store",
+          "relatedMetric": "cost",
+          "recommendation": "Roll out the optimization pattern to comparable workloads."
+        }
+      ],
+      "recommendations": [
+        {
+          "title": "Buy 1-year VM reservation for risk simulation grid",
+          "scope": "sample-risk-grid",
+          "tenant": "sample-trading",
+          "owner": "Trading Risk",
+          "cluster": "Compute",
+          "source": "Reservation Recommendations API",
+          "effort": "Low",
+          "annualSavings": 84000
+        }
+      ],
+      "trend": {
+        "labels": [
+          "Jun 25",
+          "Jul 25",
+          "Aug 25",
+          "Sep 25",
+          "Oct 25",
+          "Nov 25",
+          "Dec 25",
+          "Jan 26",
+          "Feb 26",
+          "Mar 26",
+          "Apr 26",
+          "May 26*"
+        ],
+        "series": [
+          {
+            "name": "Compute",
+            "values": [
+              249349,
+              256952,
+              264554,
+              275197,
+              281278,
+              285840,
+              299523,
+              310166,
+              328411,
+              349697,
+              367943,
+              404433
+            ]
+          },
+          {
+            "name": "Storage",
+            "values": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "Network",
+            "values": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "Database",
+            "values": [
+              88794,
+              92493,
+              96193,
+              99153,
+              101743,
+              104332,
+              107292,
+              110252,
+              114692,
+              119131,
+              123941,
+              132450
+            ]
+          },
+          {
+            "name": "AI & Analytics",
+            "values": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "Security",
+            "values": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "Containers",
+            "values": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "Other",
+            "values": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "anomalies": [
+          {
+            "index": 8,
+            "label": "Feb: ingestion spike"
+          },
+          {
+            "index": 10,
+            "label": "Apr: AI rollout"
+          },
+          {
+            "index": 11,
+            "label": "May: network over-provisioning"
+          }
+        ]
+      },
+      "waterfall": [
+        {
+          "label": "Previous month",
+          "value": 424000,
+          "type": "total"
+        },
+        {
+          "label": "Virtual Machines",
+          "value": 134000,
+          "type": "up"
+        },
+        {
+          "label": "Azure SQL Database",
+          "value": -18000,
+          "type": "down"
+        },
+        {
+          "label": "Current month",
+          "value": 540000,
+          "type": "total"
+        }
+      ],
+      "quarterRollup": {
+        "previous": {
+          "Compute": 938100,
+          "Storage": 0,
+          "Network": 0,
+          "Database": 332236,
+          "AI & Analytics": 0,
+          "Security": 0,
+          "Containers": 0,
+          "Other": 0
+        },
+        "current": {
+          "Compute": 1122073,
+          "Storage": 0,
+          "Network": 0,
+          "Database": 375522,
+          "AI & Analytics": 0,
+          "Security": 0,
+          "Containers": 0,
+          "Other": 0
+        }
+      },
+      "unitPriceIndex": {
+        "labels": [
+          "Jun 25",
+          "Jul 25",
+          "Aug 25",
+          "Sep 25",
+          "Oct 25",
+          "Nov 25",
+          "Dec 25",
+          "Jan 26",
+          "Feb 26",
+          "Mar 26",
+          "Apr 26",
+          "May 26*"
+        ],
+        "series": [
+          {
+            "name": "vCPU-hour",
+            "values": [
+              101,
+              100,
+              100,
+              99,
+              98,
+              99,
+              99,
+              100,
+              99,
+              98,
+              97,
+              96
+            ]
+          },
+          {
+            "name": "GB-month",
+            "values": [
+              102,
+              101,
+              100,
+              100,
+              99,
+              99,
+              99,
+              100,
+              99,
+              99,
+              98,
+              98
+            ]
+          },
+          {
+            "name": "GB-egress",
+            "values": [
+              100,
+              100,
+              101,
+              101,
+              101,
+              102,
+              101,
+              100,
+              101,
+              102,
+              103,
+              104
+            ]
+          }
+        ]
+      },
+      "clusterDetails": {
+        "Compute": {
+          "description": "Virtual Machines, VM Scale Sets, App Service, Functions, Batch, Dedicated Host",
+          "trend": [
+            249349,
+            256952,
+            264554,
+            275197,
+            281278,
+            285840,
+            299523,
+            310166,
+            328411,
+            349697,
+            367943,
+            404433
+          ],
+          "meters": [
+            {
+              "meter": "Virtual Machines",
+              "quantity": 16500,
+              "unit": "hours",
+              "cost": 402000,
+              "deltaPercent": 0.8974358974358942
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample-trading/resourceGroups/rg-risk/providers/Microsoft.Compute/virtualMachineScaleSets/sample-risk-vmss",
+              "subscription": "sample-risk-grid",
+              "region": "westeurope",
+              "mtdCost": 402000,
+              "deltaPercent": 0.8974358974358942,
+              "pricing": "Reservation",
+              "tags": "owner=Trading Risk,costCenter=TR-000",
+              "cause": "Added stress-test scenarios to risk grid"
+            }
+          ]
+        },
+        "Storage": {
+          "description": "Blob, ADLS, Files, Backup, Recovery Services, NetApp Files",
+          "trend": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "meters": [],
+          "resources": []
+        },
+        "Network": {
+          "description": "Bandwidth, VPN, ExpressRoute, Load Balancer, App Gateway, Front Door, Firewall",
+          "trend": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "meters": [],
+          "resources": []
+        },
+        "Database": {
+          "description": "Azure SQL, Cosmos DB, PostgreSQL, MySQL, Redis, Synapse SQL pools",
+          "trend": [
+            88794,
+            92493,
+            96193,
+            99153,
+            101743,
+            104332,
+            107292,
+            110252,
+            114692,
+            119131,
+            123941,
+            132450
+          ],
+          "meters": [
+            {
+              "meter": "Azure SQL Database",
+              "quantity": 1320,
+              "unit": "vCore hours",
+              "cost": 138000,
+              "deltaPercent": -2.857142857142858
+            }
+          ],
+          "resources": [
+            {
+              "id": "/subscriptions/sample-trading/resourceGroups/rg-marketdata/providers/Microsoft.Sql/servers/sample-md-sql/databases/ticks",
+              "subscription": "sample-market-data",
+              "region": "westeurope",
+              "mtdCost": 138000,
+              "deltaPercent": -2.857142857142858,
+              "pricing": "OnDemand",
+              "tags": "owner=Market Data,costCenter=MD-000",
+              "cause": "Right-sized tick history compute"
+            }
+          ]
+        },
+        "AI & Analytics": {
+          "description": "Azure OpenAI, Azure ML, Cognitive Services, Synapse Spark, Databricks, Fabric",
+          "trend": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "meters": [],
+          "resources": []
+        },
+        "Security": {
+          "description": "Defender for Cloud, Sentinel, Key Vault, Entra premium SKUs",
+          "trend": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "meters": [],
+          "resources": []
+        },
+        "Containers": {
+          "description": "AKS, Container Apps, Container Registry, Container Instances",
+          "trend": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "meters": [],
+          "resources": []
+        },
+        "Other": {
+          "description": "Logic Apps, API Management, IoT, Marketplace, Support, untagged",
+          "trend": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "meters": [],
+          "resources": []
+        }
+      },
+      "moversUp": [
+        {
+          "subscription": "sample-risk-grid",
+          "owner": "Trading Risk",
+          "delta": 134000,
+          "deltaPercent": 50,
+          "driver": "Intraday risk simulation grid"
+        }
+      ],
+      "moversDown": [
+        {
+          "subscription": "sample-market-data",
+          "owner": "Market Data",
+          "delta": -18000,
+          "deltaPercent": -11.538461538461538,
+          "driver": "Tick history store"
+        }
+      ],
+      "anomalySummary": {
+        "labels": [
+          "Compute",
+          "Database"
+        ],
+        "high": [
+          0,
+          0
+        ],
+        "medium": [
+          1,
+          0
+        ],
+        "win": [
+          0,
+          1
+        ]
+      },
+      "forecast": {
+        "labels": [
+          "Day 1",
+          "Day 2",
+          "Day 3",
+          "Day 4",
+          "Day 5",
+          "Day 6",
+          "Day 7",
+          "Day 8",
+          "Day 9",
+          "Day 10",
+          "Day 11",
+          "Day 12",
+          "Day 13",
+          "Day 14",
+          "Day 15",
+          "Day 16",
+          "Day 17",
+          "Day 18",
+          "Day 19",
+          "Day 20",
+          "Day 21",
+          "Day 22",
+          "Day 23",
+          "Day 24",
+          "Day 25",
+          "Day 26",
+          "Day 27",
+          "Day 28",
+          "Day 29",
+          "Day 30",
+          "Day 31",
+          "Day 32",
+          "Day 33",
+          "Day 34",
+          "Day 35",
+          "Day 36",
+          "Day 37",
+          "Day 38",
+          "Day 39",
+          "Day 40",
+          "Day 41",
+          "Day 42",
+          "Day 43",
+          "Day 44",
+          "Day 45"
+        ],
+        "actual": [
+          32079,
+          32721,
+          33362,
+          34004,
+          34646,
+          35287,
+          35929,
+          33876,
+          34517,
+          35159,
+          35800,
+          36442,
+          37084,
+          37725,
+          35672,
+          36314,
+          36955,
+          37597,
+          38238,
+          38880,
+          39522,
+          37469,
+          38110,
+          38752,
+          39393,
+          40035,
+          40676,
+          41318,
+          39265,
+          39907,
+          40548,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "forecast": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          39778,
+          40013,
+          40249,
+          40484,
+          40719,
+          40954,
+          41190,
+          41425,
+          41660,
+          41895,
+          42131,
+          42366,
+          42601,
+          42836,
+          43072
+        ],
+        "lower": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          38983,
+          39053,
+          39122,
+          39188,
+          39253,
+          39316,
+          39377,
+          39437,
+          39494,
+          39549,
+          39603,
+          39655,
+          39704,
+          39752,
+          39798
+        ],
+        "upper": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          40574,
+          40974,
+          41376,
+          41779,
+          42185,
+          42593,
+          43002,
+          43413,
+          43827,
+          44242,
+          44659,
+          45077,
+          45498,
+          45921,
+          46345
+        ]
+      },
+      "dataSources": {
+        "datasets": [
+          {
+            "dataset": "Cost and usage (FOCUS 1.0)",
+            "scope": "Billing account",
+            "frequency": "Daily / MTD",
+            "schema": "FOCUS"
+          },
+          {
+            "dataset": "ActualCost export",
+            "scope": "Billing account",
+            "frequency": "Daily",
+            "schema": "Azure native"
+          },
+          {
+            "dataset": "AmortizedCost export",
+            "scope": "Billing account",
+            "frequency": "Daily",
+            "schema": "Azure native"
+          },
+          {
+            "dataset": "Reservation / Savings Plan APIs",
+            "scope": "Billing / benefit scope",
+            "frequency": "Daily",
+            "schema": "Azure APIs"
+          },
+          {
+            "dataset": "Advisor / Monitor / Activity Log",
+            "scope": "Subscription",
+            "frequency": "Daily",
+            "schema": "Azure APIs"
+          }
+        ],
+        "fields": [
+          {
+            "field": "EffectiveCost / CostInBillingCurrency",
+            "usedFor": "Cost trend, commercial changes, rankings"
+          },
+          {
+            "field": "ListCost",
+            "usedFor": "Savings versus PayG"
+          },
+          {
+            "field": "ServiceName / MeterCategory",
+            "usedFor": "Cluster mapping"
+          },
+          {
+            "field": "ResourceId / ResourceGroup",
+            "usedFor": "Workload drilldown and root cause"
+          },
+          {
+            "field": "PricingModel / BenefitId",
+            "usedFor": "Commitment attribution"
+          },
+          {
+            "field": "TenantId / Tags / RBAC mapping",
+            "usedFor": "Tenant switching, owner and cost-center accountability"
+          }
+        ],
+        "architecture": "[Cost exports + Azure APIs] -> [Customer-owned storage/lakehouse] -> [Processing jobs] -> [Dashboard snapshot/API] -> [Web dashboard]"
+      },
+      "glossary": {
+        "clusters": [
+          {
+            "cluster": "Compute",
+            "includes": "Virtual Machines, VM Scale Sets, App Service, Functions, Batch, Dedicated Host"
+          },
+          {
+            "cluster": "Storage",
+            "includes": "Blob, ADLS, Files, Backup, Recovery Services, NetApp Files"
+          },
+          {
+            "cluster": "Network",
+            "includes": "Bandwidth, VPN, ExpressRoute, Load Balancer, App Gateway, Front Door, Firewall"
+          },
+          {
+            "cluster": "Database",
+            "includes": "Azure SQL, Cosmos DB, PostgreSQL, MySQL, Redis, Synapse SQL pools"
+          },
+          {
+            "cluster": "AI & Analytics",
+            "includes": "Azure OpenAI, Azure ML, Cognitive Services, Synapse Spark, Databricks, Fabric"
+          },
+          {
+            "cluster": "Security",
+            "includes": "Defender for Cloud, Sentinel, Key Vault, Entra premium SKUs"
+          },
+          {
+            "cluster": "Containers",
+            "includes": "AKS, Container Apps, Container Registry, Container Instances"
+          },
+          {
+            "cluster": "Other",
+            "includes": "Logic Apps, API Management, IoT, Marketplace, Support, untagged"
+          }
+        ],
+        "methodology": [
+          "Tenant views are pre-aggregated per Azure AD tenant; the 'all' view is the billing-account roll-up.",
+          "Anomalies: rolling 28-day median per subscription x service, z-score over 7-day window.",
+          "High severity: absolute delta above threshold and z-score >= 3.",
+          "Win: sustained cost decrease with attributable optimization action.",
+          "Actual cost is invoice-oriented; amortized/effective cost is preferred for trend reporting.",
+          "FOCUS provides normalized EffectiveCost, BilledCost, ContractedCost, and ListCost fields."
+        ]
+      },
+      "dataQuality": {
+        "costRows": 4,
+        "advisorRecommendations": 1,
+        "monitorFindings": 4,
+        "activityLogFindings": 1,
+        "notes": [
+          "Sample data is synthetic.",
+          "Commitments, unit-price index, data sources and glossary are billing-account scoped and shared across tenant views.",
+          "Production ingestion should use customer-owned storage, RBAC, and secret management."
+        ]
+      }
     }
-  ],
-  "recommendations": [
-    {
-      "title": "Downsize ExpressRoute circuit after utilization review",
-      "scope": "sample-networking",
-      "owner": "Network Platform",
-      "cluster": "Network",
-      "source": "Azure Monitor + custom rule",
-      "effort": "Medium",
-      "annualSavings": 170000
-    },
-    {
-      "title": "Buy 3-year Compute Savings Plan",
-      "scope": "sample-prod",
-      "owner": "Cloud Platform",
-      "cluster": "Compute",
-      "source": "Savings Plan Recommendations API",
-      "effort": "Low",
-      "annualSavings": 168000
-    },
-    {
-      "title": "Commit Azure OpenAI PTU for stable GPT-4o usage",
-      "scope": "sample-ai-foundry",
-      "owner": "Data and AI Platform",
-      "cluster": "AI & Analytics",
-      "source": "Custom FinOps rule",
-      "effort": "Medium",
-      "annualSavings": 96000
-    },
-    {
-      "title": "Right-size SQL database from 16 to 12 vCore",
-      "scope": "sample-billing-platform",
-      "owner": "Distribution",
-      "cluster": "Database",
-      "source": "Azure Advisor",
-      "effort": "Low",
-      "annualSavings": 28800
-    }
-  ],
-  "dataQuality": {
-    "costRows": 10,
-    "advisorRecommendations": 4,
-    "monitorFindings": 3,
-    "activityLogFindings": 3,
-    "notes": [
-      "Sample data is synthetic.",
-      "Production ingestion should use customer-owned storage, RBAC, and secret management.",
-      "Browser clients should consume snapshots or secured APIs, not Azure management credentials."
-    ]
   }
 }

@@ -34,6 +34,16 @@
     "source": "Azure Advisor",
     "effort": "Low",
     "annualSavings": 28800
+  },
+  {
+    "title": "Buy 1-year VM reservation for risk simulation grid",
+    "subscriptionName": "sample-risk-grid",
+    "owner": "Trading Risk",
+    "cluster": "Compute",
+    "source": "Reservation Recommendations API",
+    "effort": "Low",
+    "annualSavings": 84000,
+    "tenant": "sample-trading"
   }
 ]
 
