@@ -19,6 +19,13 @@
     "metricName": "tokens",
     "average": 1850000000,
     "unit": "Count"
+  },
+  {
+    "subscriptionName": "sample-risk-grid",
+    "resourceId": "/subscriptions/sample-trading/resourceGroups/rg-risk/providers/Microsoft.Compute/virtualMachineScaleSets/sample-risk-vmss",
+    "metricName": "cpu_percent",
+    "average": 71,
+    "unit": "Percent"
   }
 ]
 

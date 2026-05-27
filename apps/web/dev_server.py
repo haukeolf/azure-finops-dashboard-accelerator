@@ -9,6 +9,7 @@ PORT = int(os.environ.get("PORT", "5173"))
 
 class Handler(SimpleHTTPRequestHandler):
     def translate_path(self, path):
+        path = path.split("?", 1)[0].split("#", 1)[0]
         if path.startswith("/data/"):
             return str(REPO_ROOT / path.lstrip("/"))
         return str(WEB_ROOT / ("index.html" if path == "/" else path.lstrip("/")))

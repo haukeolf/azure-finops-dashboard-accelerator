@@ -38,6 +38,13 @@
       --cp-panel-strong: rgba(255, 255, 255, 0.96);
       --cp-sheen: rgba(255, 255, 255, 0.55);
       --cp-highlight: rgba(177, 31, 75, 0.12);
+      --cp-radius: 18px;
+      --cp-radius-sm: 11px;
+      --cp-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05), 0 6px 16px rgba(16, 24, 40, 0.05);
+      --cp-shadow-md: 0 10px 22px rgba(16, 24, 40, 0.09), 0 24px 48px rgba(16, 24, 40, 0.07);
+      --cp-ring: rgba(177, 31, 75, 0.28);
+      --cp-grad: linear-gradient(135deg, #b11f4b, #e0577d);
+      --cp-hairline: rgba(16, 24, 40, 0.08);
     }
     html[data-theme="dark"] {
       color-scheme: dark;
@@ -64,98 +71,242 @@
       --cp-panel-strong: rgba(41, 41, 41, 0.96);
       --cp-sheen: rgba(255, 255, 255, 0.04);
       --cp-highlight: rgba(253, 142, 161, 0.12);
+      --cp-radius: 18px;
+      --cp-radius-sm: 11px;
+      --cp-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.28);
+      --cp-shadow-md: 0 14px 32px rgba(0, 0, 0, 0.46), 0 4px 10px rgba(0, 0, 0, 0.35);
+      --cp-ring: rgba(253, 142, 161, 0.32);
+      --cp-grad: linear-gradient(135deg, #fd8ea1, #b11f4b);
+      --cp-hairline: rgba(255, 255, 255, 0.08);
     }
   </style>
   <link rel="stylesheet" href="/src/styles.css">
 </head>
 <body>
-  <main class="shell">
-    <section class="hero">
-      <div>
-        <p class="eyebrow">Open-source accelerator draft</p>
-        <h1>Azure FinOps Dashboard</h1>
-        <p class="lead">Web dashboard for FOCUS-based cost transparency, Azure API enrichment, anomalies, and targeted FinOps recommendations.</p>
-      </div>
-      <div class="status-card">
-        <span class="status-dot"></span>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">AF</div>
         <div>
-          <strong id="data-source-label">Loading snapshot</strong>
-          <p id="snapshot-meta">Waiting for dashboard data...</p>
+          <div class="brand-name">Azure FinOps</div>
+          <div class="brand-sub">Dashboard Accelerator</div>
         </div>
       </div>
-    </section>
+      <nav class="nav" aria-label="Dashboard sections">
+        <button class="nav-link active" data-section="overview">▦ Executive Overview</button>
+        <button class="nav-link" data-section="commercial">€ Commercial Changes</button>
+        <button class="nav-link" data-section="services">⚙ Service Clusters</button>
+        <button class="nav-link" data-section="accounts">▤ Accounts & Subscriptions</button>
+        <button class="nav-link" data-section="commitments">◷ Savings Plans & RIs</button>
+        <button class="nav-link" data-section="anomalies">! Anomalies & Deviations</button>
+        <button class="nav-link" data-section="recommendations">★ Recommendations</button>
+        <div class="nav-section-title">Data & Setup</div>
+        <button class="nav-link" data-section="data-sources">↓ Data Sources</button>
+        <button class="nav-link" data-section="glossary">? Glossary & Method</button>
+      </nav>
+    </aside>
 
-    <section class="kpi-grid" id="summary"></section>
-
-    <section class="layout">
-      <article class="card wide">
-        <div class="card-head">
-          <div>
-            <h2>Commercial changes</h2>
-            <p>Month-over-month service and cluster drivers.</p>
-          </div>
-        </div>
-        <div class="bar-list" id="commercial-changes"></div>
-      </article>
-
-      <article class="card">
-        <div class="card-head">
-          <div>
-            <h2>Service clusters</h2>
-            <p>Cost share by normalized cluster.</p>
-          </div>
-        </div>
-        <div class="cluster-list" id="clusters"></div>
-      </article>
-    </section>
-
-    <section class="layout">
-      <article class="card">
-        <div class="card-head">
-          <div>
-            <h2>Commitments</h2>
-            <p>Reservations and Savings Plans.</p>
-          </div>
-        </div>
-        <div id="commitments"></div>
-      </article>
-
-      <article class="card">
-        <div class="card-head">
-          <div>
-            <h2>Anomalies</h2>
-            <p>Cost deviations with root-cause candidates.</p>
-          </div>
-        </div>
-        <div class="stack" id="anomalies"></div>
-      </article>
-    </section>
-
-    <section class="card">
-      <div class="card-head">
+    <main class="main">
+      <header class="page-head">
         <div>
-          <h2>Targeted recommendations</h2>
-          <p>Actions grouped by subscription, owner, source, effort, and annual savings potential.</p>
+          <div class="breadcrumb">FinOps · Azure · Generic Accelerator</div>
+          <h1>Azure Cost Analytics</h1>
+          <div class="scope-line">
+            <span class="scope-pill">Dataset: <b id="period-label">Loading</b></span>
+            <span class="scope-pill">Source: <b id="data-source-label">Loading</b></span>
+            <span class="scope-pill">Generated: <b id="snapshot-meta">—</b></span>
+          </div>
         </div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Recommendation</th>
-              <th>Scope</th>
-              <th>Owner</th>
-              <th>Source</th>
-              <th>Effort</th>
-              <th class="num">Annual savings</th>
-            </tr>
-          </thead>
-          <tbody id="recommendations"></tbody>
-        </table>
-      </div>
-    </section>
-  </main>
+        <div class="head-controls">
+          <div class="global-filters">
+            <label>Tenant <select id="global-tenant" aria-label="Tenant"></select></label>
+            <label>Compare <select id="global-compare" aria-label="Comparison basis"></select></label>
+          </div>
+          <button class="theme-toggle" id="theme-toggle" title="Toggle theme">◐</button>
+        </div>
+      </header>
+
+      <section id="overview" class="dashboard-section active">
+        <div class="section-head">
+          <h2>Executive Overview</h2>
+          <p>Current cost position, commercial movement, forecast, and top decision signals.</p>
+        </div>
+        <div class="kpi-grid" id="summary"></div>
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-title">12-month cost trend by cluster</div>
+            <div class="card-sub">Stacked synthetic spend, with anomaly markers.</div>
+            <canvas id="chart-trend" class="chart lg"></canvas>
+            <div class="legend" id="legend-trend"></div>
+          </article>
+          <article class="card">
+            <div class="card-title" id="waterfall-title">Month-over-month waterfall</div>
+            <div class="card-sub" id="waterfall-sub">Primary drivers from previous to current month.</div>
+            <div class="waterfall" id="waterfall"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="commercial" class="dashboard-section">
+        <div class="section-head">
+          <h2>Commercial Changes vs. Previous Month / Quarter</h2>
+          <p>Service movement, cluster movement, quarter movement, and unit-price signal.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="card-title">Cluster MoM</div>
+            <canvas id="chart-cluster-mom" class="chart"></canvas>
+          </article>
+          <article class="card">
+            <div class="card-title">Cluster QoQ</div>
+            <canvas id="chart-cluster-qoq" class="chart"></canvas>
+          </article>
+          <article class="card">
+            <div class="card-title">Effective unit-price index</div>
+            <canvas id="chart-unitprice" class="chart"></canvas>
+          </article>
+        </div>
+        <article class="card">
+          <div class="card-title">Top contributing services to MoM change</div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Service</th><th>Cluster</th><th class="num">Previous</th><th class="num">Current</th><th class="num">Delta</th><th class="num">Delta %</th><th>Primary driver</th></tr></thead>
+              <tbody id="service-mom-table"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section id="services" class="dashboard-section">
+        <div class="section-head">
+          <h2>Service Cluster Deep-Dive</h2>
+          <p>Cluster-level meter and resource hot-list with expandable root-cause detail.</p>
+        </div>
+        <div class="cluster-tabs" id="cluster-tabs"></div>
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-title" id="cluster-title">Cluster trend</div>
+            <div class="card-sub" id="cluster-subtitle"></div>
+            <canvas id="chart-cluster-detail" class="chart"></canvas>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Meter</th><th class="num">Qty</th><th>Unit</th><th class="num">Cost</th><th class="num">Delta MoM</th></tr></thead>
+                <tbody id="cluster-meter-table"></tbody>
+              </table>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-title">Top resources in cluster</div>
+            <div class="card-sub">Click a row to expand the root-cause panel.</div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Resource</th><th>Subscription</th><th>Region</th><th class="num">MTD</th><th class="num">Delta</th><th>Pricing</th></tr></thead>
+                <tbody id="cluster-resource-table"></tbody>
+              </table>
+            </div>
+            <div class="detail-panel" id="resource-detail-panel">
+              <button class="detail-close" id="detail-close">Close</button>
+              <h3 id="resource-detail-title">Root cause</h3>
+              <div id="resource-detail-body"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="accounts" class="dashboard-section">
+        <div class="section-head">
+          <h2>Accounts & Subscriptions</h2>
+          <p>Subscription movers, owner attribution, cost-center mapping, and rolling trend status.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <div class="card-title">Movers up</div>
+            <div class="table-wrap"><table><thead><tr><th>Subscription</th><th>Owner</th><th class="num">Delta</th><th class="num">Delta %</th><th>Primary driver</th></tr></thead><tbody id="movers-up-table"></tbody></table></div>
+          </article>
+          <article class="card">
+            <div class="card-title">Movers down / optimizations</div>
+            <div class="table-wrap"><table><thead><tr><th>Subscription</th><th>Owner</th><th class="num">Delta</th><th class="num">Delta %</th><th>Achieved by</th></tr></thead><tbody id="movers-down-table"></tbody></table></div>
+          </article>
+        </div>
+        <article class="card">
+          <div class="card-title">Subscription portfolio</div>
+          <div class="table-wrap"><table><thead><tr><th>Subscription</th><th>Tenant</th><th>Owner / Cost center</th><th class="num">MTD</th><th class="num">Avg 6M</th><th class="num">Delta vs avg</th><th>Trend</th><th>Status</th></tr></thead><tbody id="subscriptions-table"></tbody></table></div>
+        </article>
+      </section>
+
+      <section id="commitments" class="dashboard-section">
+        <div class="section-head">
+          <h2>Savings Plans & Reservation Coverage</h2>
+          <p>Coverage, utilization, savings, active commitment mix, expiries, and top purchases.</p>
+        </div>
+        <div class="grid-4">
+          <article class="card metric-card"><div class="card-title">RI coverage</div><div class="big-number" id="ri-coverage">—</div><div class="progress"><span id="ri-coverage-bar"></span></div></article>
+          <article class="card metric-card"><div class="card-title">SP utilization</div><div class="big-number" id="sp-utilization">—</div><div class="progress"><span id="sp-utilization-bar"></span></div></article>
+          <article class="card"><div class="card-title">Realized savings 12M</div><canvas id="chart-savings" class="chart sm"></canvas></article>
+          <article class="card"><div class="card-title">Commitment mix</div><div class="stack" id="commitment-mix"></div></article>
+        </div>
+        <div class="grid-2">
+          <article class="card"><div class="card-title">Expiring commitments</div><div class="table-wrap"><table><thead><tr><th>Benefit</th><th>Type</th><th class="num">Hourly</th><th>Expires</th><th class="num">Utilization</th><th>Recommendation</th></tr></thead><tbody id="expiring-table"></tbody></table></div></article>
+          <article class="card"><div class="card-title">Top RI / SP purchase recommendations</div><div class="table-wrap"><table><thead><tr><th>Recommendation</th><th>Scope</th><th class="num">Upfront</th><th class="num">Annual savings</th><th>ROI</th></tr></thead><tbody id="commitment-recs-table"></tbody></table></div></article>
+        </div>
+      </section>
+
+      <section id="anomalies" class="dashboard-section">
+        <div class="section-head">
+          <h2>Anomalies & Deviations</h2>
+          <p>Statistically significant cost movements and hypothesized root causes.</p>
+        </div>
+        <div class="grid-2">
+          <div class="stack" id="anomaly-list"></div>
+          <article class="card">
+            <div class="card-title">Anomaly summary</div>
+            <canvas id="chart-anomaly-summary" class="chart"></canvas>
+            <div class="card-title spaced">Forecast vs actual</div>
+            <canvas id="chart-forecast" class="chart"></canvas>
+          </article>
+        </div>
+      </section>
+
+      <section id="recommendations" class="dashboard-section">
+        <div class="section-head">
+          <h2>Targeted Recommendations</h2>
+          <p>Concrete measures per subscription/account/tenant ranked by impact.</p>
+        </div>
+        <article class="card">
+          <div class="filters">
+            <label>Tenant <select id="rec-tenant"></select></label>
+            <label>Cluster <select id="rec-cluster"></select></label>
+            <label>Effort <select id="rec-effort"></select></label>
+            <span class="filter-summary" id="rec-summary"></span>
+          </div>
+          <div id="recommendation-list"></div>
+        </article>
+      </section>
+
+      <section id="data-sources" class="dashboard-section">
+        <div class="section-head">
+          <h2>Data Sources & Wiring</h2>
+          <p>Source datasets, required scopes, and dashboard field mapping.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card"><div class="card-title">Datasets</div><div class="table-wrap"><table><thead><tr><th>Dataset</th><th>Scope</th><th>Frequency</th><th>Schema</th></tr></thead><tbody id="dataset-table"></tbody></table></div></article>
+          <article class="card"><div class="card-title">Key fields</div><div class="table-wrap"><table><thead><tr><th>Field</th><th>Used for</th></tr></thead><tbody id="field-table"></tbody></table></div></article>
+        </div>
+        <article class="card"><div class="card-title">Ingestion architecture</div><pre class="architecture-text" id="architecture-text"></pre></article>
+      </section>
+
+      <section id="glossary" class="dashboard-section">
+        <div class="section-head">
+          <h2>Glossary & Methodology</h2>
+          <p>Cluster mapping rules, anomaly detection method, and cost definitions.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card"><div class="card-title">Service cluster mapping</div><div class="table-wrap"><table><thead><tr><th>Cluster</th><th>Includes</th></tr></thead><tbody id="glossary-clusters"></tbody></table></div></article>
+          <article class="card"><div class="card-title">Methodology</div><div id="methodology"></div></article>
+        </div>
+      </section>
+    </main>
+  </div>
   <script type="module" src="/src/app.mjs"></script>
 </body>
 </html>
-
