@@ -1,0 +1,16 @@
+{
+  "routes": [
+    {
+      "route": "/data/snapshots/*.json",
+      "headers": { "Cache-Control": "no-cache" }
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/data/*", "/src/*", "/*.{css,js,mjs,json,ico,png,svg}"]
+  },
+  "mimeTypes": {
+    ".mjs": "text/javascript",
+    ".json": "application/json"
+  }
+}

@@ -36,16 +36,22 @@ const COMPARE_OPTIONS = [
   { id: "year", label: "vs same month last year" },
 ];
 
+// The local API only exists during dev (make api). Skip the probe when the page is
+// hosted off-box (Azure Static Web Apps etc.) so we don't waste a roundtrip + error log.
+const isLocalHost = typeof location !== "undefined" && /^(127\.0\.0\.1|localhost|0\.0\.0\.0)$/.test(location.hostname);
+
 async function loadDocument() {
-  try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error(`API returned ${response.status}`);
-    return await response.json();
-  } catch {
-    const response = await fetch(FALLBACK_URL);
-    if (!response.ok) throw new Error(`Fallback returned ${response.status}`);
-    return await response.json();
+  if (isLocalHost) {
+    try {
+      const response = await fetch(API_URL);
+      if (response.ok) return await response.json();
+    } catch {
+      // fall through to static snapshot
+    }
   }
+  const response = await fetch(FALLBACK_URL);
+  if (!response.ok) throw new Error(`Snapshot fetch failed: ${response.status}`);
+  return await response.json();
 }
 
 function classForDelta(value) {
