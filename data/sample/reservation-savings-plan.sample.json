@@ -4,7 +4,10 @@
     "savingsPlanCoveragePercent": 48.5
   },
   "reservationCoveragePercent": 61.8,
+  "reservationTargetPercent": 75,
   "savingsPlanUtilizationPercent": 94.2,
+  "savingsPlanHourlyCommitment": 41000,
+  "savingsPlanUtilizationMomPts": 2.1,
   "expiring": [
     {
       "name": "sample-vm-reservation-weu",

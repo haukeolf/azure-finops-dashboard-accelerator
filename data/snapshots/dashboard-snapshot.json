@@ -1,6 +1,6 @@
 {
-  "schemaVersion": "0.3.0",
-  "generatedAt": "2026-05-27T07:10:57.972977+00:00",
+  "schemaVersion": "0.4.0",
+  "generatedAt": "2026-05-28T12:39:34.455249+00:00",
   "tenants": [
     {
       "id": "all",
@@ -16,11 +16,26 @@
     }
   ],
   "defaultTenant": "all",
+  "billingAccounts": [
+    {
+      "id": "generic-mca",
+      "label": "Generic FinOps Accelerator (MCA)"
+    }
+  ],
+  "defaultBillingAccount": "generic-mca",
+  "periodOptions": [
+    {
+      "id": "mtd",
+      "label": "Month-to-date (May 2026)"
+    }
+  ],
+  "defaultPeriod": "mtd",
   "views": {
     "all": {
       "period": {
         "id": "sample-current-all",
-        "label": "Synthetic May 2026 · all tenants"
+        "label": "Synthetic May 2026 · all tenants",
+        "monthTitle": "May 2026"
       },
       "summary": {
         "currentCost": 2525000,
@@ -29,6 +44,29 @@
         "deltaQuarterPercent": 7.3,
         "commitmentCoveragePercent": 61.8,
         "annualSavingsPotential": 546800,
+        "currency": "EUR",
+        "monthTitle": "May 2026",
+        "daysElapsed": 11,
+        "currentMonthForecast": 3563000,
+        "qtdTotal": 9716000,
+        "qtdLabel": "Q2 2026 · run-rate",
+        "qtdDeltaPercent": 25.125563425627817,
+        "ytdTotal": 30184000,
+        "budget": 31278756,
+        "ytdVsBudgetPercent": -3.4999985293532774,
+        "reservationCoveragePercent": 61.8,
+        "reservationTargetPercent": 75,
+        "reservationGapPts": 13.200000000000003,
+        "savingsPlanUtilizationPercent": 94.2,
+        "savingsPlanHourlyCommitment": 41000,
+        "savingsPlanUtilizationMomPts": 2.1,
+        "openAnomalies": {
+          "count": 5,
+          "high": 2,
+          "medium": 2,
+          "wins": 1,
+          "newThisWeek": 2
+        },
         "compare": {
           "month": {
             "label": "vs previous month",
@@ -313,7 +351,10 @@
           "savingsPlanCoveragePercent": 48.5
         },
         "reservationCoveragePercent": 61.8,
+        "reservationTargetPercent": 75,
         "savingsPlanUtilizationPercent": 94.2,
+        "savingsPlanHourlyCommitment": 41000,
+        "savingsPlanUtilizationMomPts": 2.1,
         "expiring": [
           {
             "name": "sample-vm-reservation-weu",
@@ -1498,7 +1539,8 @@
     "sample-prod": {
       "period": {
         "id": "sample-current-sample-prod",
-        "label": "Synthetic May 2026 · sample-prod"
+        "label": "Synthetic May 2026 · sample-prod",
+        "monthTitle": "May 2026"
       },
       "summary": {
         "currentCost": 1985000,
@@ -1507,6 +1549,29 @@
         "deltaQuarterPercent": 29.711928111732217,
         "commitmentCoveragePercent": 61.8,
         "annualSavingsPotential": 462800,
+        "currency": "EUR",
+        "monthTitle": "May 2026",
+        "daysElapsed": 11,
+        "currentMonthForecast": 2554117,
+        "qtdTotal": 6870405,
+        "qtdLabel": "Q2 2026 · run-rate",
+        "qtdDeltaPercent": 29.711928111732217,
+        "ytdTotal": 20610191,
+        "budget": 21357711,
+        "ytdVsBudgetPercent": -3.500000538447215,
+        "reservationCoveragePercent": 61.8,
+        "reservationTargetPercent": 75,
+        "reservationGapPts": 13.200000000000003,
+        "savingsPlanUtilizationPercent": 94.2,
+        "savingsPlanHourlyCommitment": 41000,
+        "savingsPlanUtilizationMomPts": 2.1,
+        "openAnomalies": {
+          "count": 4,
+          "high": 2,
+          "medium": 1,
+          "wins": 1,
+          "newThisWeek": 2
+        },
         "compare": {
           "month": {
             "label": "vs previous month",
@@ -1743,7 +1808,10 @@
           "savingsPlanCoveragePercent": 48.5
         },
         "reservationCoveragePercent": 61.8,
+        "reservationTargetPercent": 75,
         "savingsPlanUtilizationPercent": 94.2,
+        "savingsPlanHourlyCommitment": 41000,
+        "savingsPlanUtilizationMomPts": 2.1,
         "expiring": [
           {
             "name": "sample-vm-reservation-weu",
@@ -2874,7 +2942,8 @@
     "sample-trading": {
       "period": {
         "id": "sample-current-sample-trading",
-        "label": "Synthetic May 2026 · sample-trading"
+        "label": "Synthetic May 2026 · sample-trading",
+        "monthTitle": "May 2026"
       },
       "summary": {
         "currentCost": 540000,
@@ -2883,6 +2952,29 @@
         "deltaQuarterPercent": 17.889676432062068,
         "commitmentCoveragePercent": 61.8,
         "annualSavingsPotential": 84000,
+        "currency": "EUR",
+        "monthTitle": "May 2026",
+        "daysElapsed": 11,
+        "currentMonthForecast": 536883,
+        "qtdTotal": 1497595,
+        "qtdLabel": "Q2 2026 · run-rate",
+        "qtdDeltaPercent": 17.889676432062068,
+        "ytdTotal": 4963809,
+        "budget": 5143844,
+        "ytdVsBudgetPercent": -3.5000089427284347,
+        "reservationCoveragePercent": 61.8,
+        "reservationTargetPercent": 75,
+        "reservationGapPts": 13.200000000000003,
+        "savingsPlanUtilizationPercent": 94.2,
+        "savingsPlanHourlyCommitment": 41000,
+        "savingsPlanUtilizationMomPts": 2.1,
+        "openAnomalies": {
+          "count": 2,
+          "high": 0,
+          "medium": 1,
+          "wins": 1,
+          "newThisWeek": 2
+        },
         "compare": {
           "month": {
             "label": "vs previous month",
@@ -2999,7 +3091,10 @@
           "savingsPlanCoveragePercent": 48.5
         },
         "reservationCoveragePercent": 61.8,
+        "reservationTargetPercent": 75,
         "savingsPlanUtilizationPercent": 94.2,
+        "savingsPlanHourlyCommitment": 41000,
+        "savingsPlanUtilizationMomPts": 2.1,
         "expiring": [
           {
             "name": "sample-vm-reservation-weu",

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Azure FinOps Dashboard Accelerator</title>
+  <title>Azure FinOps · Cost Analytics Dashboard</title>
   <script>
     (() => {
       const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
@@ -89,7 +89,7 @@
         <div class="brand-logo">AF</div>
         <div>
           <div class="brand-name">Azure FinOps</div>
-          <div class="brand-sub">Dashboard Accelerator</div>
+          <div class="brand-sub">Cost Analytics Dashboard</div>
         </div>
       </div>
       <nav class="nav" aria-label="Dashboard sections">
@@ -108,40 +108,40 @@
 
     <main class="main">
       <header class="page-head">
-        <div>
+        <div class="page-title">
           <div class="breadcrumb">FinOps · Azure · Generic Accelerator</div>
-          <h1>Azure Cost Analytics</h1>
+          <h1 id="page-title">Azure Cost Analytics</h1>
           <div class="scope-line">
-            <span class="scope-pill">Dataset: <b id="period-label">Loading</b></span>
-            <span class="scope-pill">Source: <b id="data-source-label">Loading</b></span>
-            <span class="scope-pill">Generated: <b id="snapshot-meta">—</b></span>
+            <span class="scope-pill">Billing Account: <b id="billing-account-label">—</b></span>
+            <span class="scope-pill">Currency: <b id="currency-label">—</b></span>
+            <span class="scope-pill">Last refresh: <b id="snapshot-meta">—</b></span>
           </div>
         </div>
-        <div class="head-controls">
-          <div class="global-filters">
-            <label>Tenant <select id="global-tenant" aria-label="Tenant"></select></label>
-            <label>Compare <select id="global-compare" aria-label="Comparison basis"></select></label>
-          </div>
+        <div class="filter-row" role="group" aria-label="Dashboard filters">
+          <div class="filter"><label for="global-tenant">Tenant</label><select id="global-tenant" aria-label="Tenant"></select></div>
+          <div class="filter"><label for="global-billing-account">Billing Account</label><select id="global-billing-account" aria-label="Billing Account"></select></div>
+          <div class="filter"><label for="global-period">Period</label><select id="global-period" aria-label="Period"></select></div>
+          <div class="filter"><label for="global-compare">Compare</label><select id="global-compare" aria-label="Comparison basis"></select></div>
           <button class="theme-toggle" id="theme-toggle" title="Toggle theme">◐</button>
         </div>
       </header>
 
       <section id="overview" class="dashboard-section active">
-        <div class="section-head">
+        <div class="section-head uppercase">
           <h2>Executive Overview</h2>
-          <p>Current cost position, commercial movement, forecast, and top decision signals.</p>
+          <p>12-month trend with month-on-month deltas, segmented by service cluster.</p>
         </div>
-        <div class="kpi-grid" id="summary"></div>
+        <div class="kpi-grid kpi-grid-6" id="summary"></div>
         <div class="grid-2">
           <article class="card">
-            <div class="card-title">12-month cost trend by cluster</div>
-            <div class="card-sub">Stacked synthetic spend, with anomaly markers.</div>
+            <div class="card-title">Monthly spend — trend &amp; anomaly markers</div>
+            <div class="card-sub">Stacked by service cluster. Diamonds = detected anomalies (z &gt; 2.0).</div>
             <canvas id="chart-trend" class="chart lg"></canvas>
             <div class="legend" id="legend-trend"></div>
           </article>
           <article class="card">
-            <div class="card-title" id="waterfall-title">Month-over-month waterfall</div>
-            <div class="card-sub" id="waterfall-sub">Primary drivers from previous to current month.</div>
+            <div class="card-title" id="waterfall-title">Month-on-month change decomposition</div>
+            <div class="card-sub" id="waterfall-sub">Waterfall: previous month → current month forecast, drivers by cluster.</div>
             <div class="waterfall" id="waterfall"></div>
           </article>
         </div>

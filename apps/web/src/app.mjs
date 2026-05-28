@@ -8,11 +8,25 @@ const eur = (value) => new Intl.NumberFormat("de-DE", { style: "currency", curre
 const num = (value) => new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 }).format(value || 0);
 const pct = (value) => `${value >= 0 ? "+" : ""}${new Intl.NumberFormat("de-DE", { maximumFractionDigits: 1, minimumFractionDigits: 1 }).format(value || 0)}%`;
 const pctAbs = (value) => `${new Intl.NumberFormat("de-DE", { maximumFractionDigits: 1, minimumFractionDigits: 1 }).format(value || 0)}%`;
+// Compact currency: "€ 2.47 M". Custom-built so it stays locale-stable across browsers
+// (Intl 'compact' returns "Mio.", "Mrd." in de-DE which doesn't match the inspo).
+const eurCompact = (value) => {
+  const v = value || 0;
+  const abs = Math.abs(v);
+  const sign = v < 0 ? "-" : "";
+  const fmt = (n, d = 2) => new Intl.NumberFormat("de-DE", { minimumFractionDigits: d, maximumFractionDigits: d }).format(n);
+  if (abs >= 1e9) return `${sign}€ ${fmt(abs / 1e9)} B`;
+  if (abs >= 1e6) return `${sign}€ ${fmt(abs / 1e6)} M`;
+  if (abs >= 1e3) return `${sign}€ ${fmt(abs / 1e3, 1)} k`;
+  return `${sign}€ ${fmt(abs, 0)}`;
+};
+const ptsSigned = (value) => `${value >= 0 ? "+" : ""}${new Intl.NumberFormat("de-DE", { maximumFractionDigits: 1, minimumFractionDigits: 1 }).format(value || 0)} pts`;
 
 let doc;                  // full multi-tenant document { tenants, defaultTenant, views }
 let snapshot;             // active tenant view (the body the renderers read from)
-let currentSource = "";
 let selectedTenant = "all";
+let selectedBillingAccount = "";
+let selectedPeriod = "";
 let selectedCompare = "month";
 let selectedCluster = "Compute";
 
@@ -26,11 +40,11 @@ async function loadDocument() {
   try {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error(`API returned ${response.status}`);
-    return { doc: await response.json(), source: "Local API" };
+    return await response.json();
   } catch {
     const response = await fetch(FALLBACK_URL);
     if (!response.ok) throw new Error(`Fallback returned ${response.status}`);
-    return { doc: await response.json(), source: "Static snapshot" };
+    return await response.json();
   }
 }
 
@@ -193,21 +207,62 @@ function drawStackedTrend() {
   $("#legend-trend").innerHTML = series.map((s, i) => `<span><i class="dot" style="background: ${palette()[i % palette().length]}"></i>${s.name}</span>`).join("");
 }
 
-function renderMeta(source) {
-  $("#period-label").textContent = snapshot.period.label;
-  $("#data-source-label").textContent = source;
-  $("#snapshot-meta").textContent = new Date(doc.generatedAt).toLocaleString();
+function renderMeta() {
+  const accounts = doc.billingAccounts || [];
+  const account = accounts.find((a) => a.id === selectedBillingAccount) || accounts[0] || { label: "—" };
+  $("#billing-account-label").textContent = account.label;
+  $("#currency-label").textContent = snapshot.summary.currency || "—";
+  const refreshed = new Date(doc.generatedAt);
+  $("#snapshot-meta").textContent = isNaN(refreshed) ? "—" : `${refreshed.toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })} UTC`;
+  $("#page-title").textContent = `Azure Cost Analytics — ${snapshot.summary.monthTitle}`;
 }
 
+// `tone` drives badge color: "up" = red (cost going the wrong way), "down" = green
+// (cost going the right way), "neutral" = muted. This is per-KPI editorial: e.g.
+// rising savings-plan utilization uses ▲ but the green tone because more is better.
 function renderSummary() {
-  const cmp = snapshot.summary.compare[selectedCompare];
+  const s = snapshot.summary;
+  const a = s.openAnomalies;
+  const monthMoM = s.compare.month;
   const items = [
-    ["Current spend", eur(snapshot.summary.currentCost), `${eur(cmp.delta)} ${cmp.label}`, classForDelta(cmp.delta)],
-    ["Period movement", pct(cmp.deltaPercent), `${eur(cmp.previous)} → ${eur(cmp.current)}`, classForDelta(cmp.delta)],
-    ["Commitment coverage", pctAbs(snapshot.summary.commitmentCoveragePercent), "Reservations and Savings Plans", ""],
-    ["Annual savings potential", eur(snapshot.summary.annualSavingsPotential), "Ranked recommendations", ""],
+    {
+      label: "Current month spend",
+      value: eurCompact(s.currentCost),
+      sub: `MTD · ${s.daysElapsed} days · forecast ${eurCompact(s.currentMonthForecast)}`,
+      delta: { arrow: monthMoM.delta >= 0 ? "▲" : "▼", text: `${pct(monthMoM.deltaPercent)} MoM`, tone: monthMoM.delta >= 0 ? "up" : "down" },
+    },
+    {
+      label: "Quarter-to-date",
+      value: eurCompact(s.qtdTotal),
+      sub: s.qtdLabel,
+      delta: { arrow: s.qtdDeltaPercent >= 0 ? "▲" : "▼", text: `${pct(s.qtdDeltaPercent)} QoQ`, tone: s.qtdDeltaPercent >= 0 ? "up" : "down" },
+    },
+    {
+      label: "Year-to-date",
+      value: eurCompact(s.ytdTotal),
+      sub: `vs. budget ${eurCompact(s.budget)} (${pct(s.ytdVsBudgetPercent)})`,
+      delta: { arrow: s.ytdVsBudgetPercent <= 0 ? "▼" : "▲", text: `${pctAbs(Math.abs(s.ytdVsBudgetPercent))} vs budget`, tone: s.ytdVsBudgetPercent <= 0 ? "down" : "up" },
+    },
+    {
+      label: "Reservation coverage",
+      value: pctAbs(s.reservationCoveragePercent),
+      sub: `eligible compute · target ${s.reservationTargetPercent}%`,
+      delta: { arrow: "−", text: `−${s.reservationGapPts.toFixed(1)} pts to target`, tone: "neutral" },
+    },
+    {
+      label: "Savings plan utilization",
+      value: pctAbs(s.savingsPlanUtilizationPercent),
+      sub: `${eurCompact(s.savingsPlanHourlyCommitment)}/h commitment`,
+      delta: { arrow: s.savingsPlanUtilizationMomPts >= 0 ? "▲" : "▼", text: `${ptsSigned(s.savingsPlanUtilizationMomPts)} MoM`, tone: s.savingsPlanUtilizationMomPts >= 0 ? "down" : "up" },
+    },
+    {
+      label: "Open anomalies",
+      value: String(a.count),
+      sub: `${a.high} high · ${a.medium} medium · ${a.wins} wins`,
+      delta: { arrow: a.newThisWeek > 0 ? "▲" : "−", text: `${a.newThisWeek} new this week`, tone: a.newThisWeek > 0 ? "up" : "neutral" },
+    },
   ];
-  $("#summary").innerHTML = items.map(([label, value, note, cls]) => `<article class="kpi"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div><div class="kpi-note ${cls}">${note}</div></article>`).join("");
+  $("#summary").innerHTML = items.map((k) => `<article class="kpi"><div class="kpi-label">${k.label}</div><div class="kpi-value">${k.value}</div><div class="kpi-sub">${k.sub}</div><span class="kpi-badge ${k.delta.tone}">${k.delta.arrow} ${k.delta.text}</span></article>`).join("");
 }
 
 function buildWaterfall(mode) {
@@ -243,14 +298,17 @@ function buildWaterfall(mode) {
   return snapshot.waterfall;
 }
 
-const WATERFALL_HEADINGS = {
-  month: ["Month-over-month waterfall", "Primary drivers from previous to current month."],
-  quarter: ["Quarter-over-quarter waterfall", "Cluster drivers from previous to current quarter."],
-  year: ["Year-over-year waterfall", "Cluster drivers versus the same month last year."],
-};
+function waterfallHeadings(mode) {
+  const labels = snapshot.trend.labels;
+  const prevMonth = labels[labels.length - 2] || "previous month";
+  const currMonth = labels[labels.length - 1] || "current month";
+  if (mode === "quarter") return ["Quarter-on-quarter change decomposition", "Waterfall: previous quarter → current quarter, drivers by cluster."];
+  if (mode === "year") return ["Year-on-year change decomposition", "Waterfall: 12 months ago → current month, drivers by cluster."];
+  return ["Month-on-month change decomposition", `Waterfall: ${prevMonth} → ${currMonth} forecast, drivers by cluster.`];
+}
 
 function renderWaterfall() {
-  const [title, sub] = WATERFALL_HEADINGS[selectedCompare];
+  const [title, sub] = waterfallHeadings(selectedCompare);
   $("#waterfall-title").textContent = title;
   $("#waterfall-sub").textContent = sub;
   const rows = buildWaterfall(selectedCompare);
@@ -390,8 +448,8 @@ function renderGlossary() {
   $("#methodology").innerHTML = snapshot.glossary.methodology.map((m) => `<p class="method-card">${m}</p>`).join("");
 }
 
-function renderAll(source) {
-  renderMeta(source);
+function renderAll() {
+  renderMeta();
   renderSummary();
   renderWaterfall();
   renderCommercial();
@@ -421,7 +479,7 @@ function showSection(id) {
 
 function renderActiveView() {
   snapshot = doc.views[selectedTenant] || doc.views[doc.defaultTenant];
-  renderAll(currentSource);
+  renderAll();
 }
 
 function setupGlobalControls() {
@@ -431,6 +489,26 @@ function setupGlobalControls() {
   tenantSelect.onchange = () => {
     selectedTenant = tenantSelect.value;
     renderActiveView();
+  };
+
+  const billingSelect = $("#global-billing-account");
+  const accounts = doc.billingAccounts || [];
+  billingSelect.innerHTML = accounts.map((a) => `<option value="${a.id}">${a.label}</option>`).join("");
+  billingSelect.value = selectedBillingAccount;
+  if (accounts.length <= 1) billingSelect.setAttribute("disabled", "");
+  billingSelect.onchange = () => {
+    selectedBillingAccount = billingSelect.value;
+    renderMeta();
+  };
+
+  const periodSelect = $("#global-period");
+  const periods = doc.periodOptions || [];
+  periodSelect.innerHTML = periods.map((p) => `<option value="${p.id}">${p.label}</option>`).join("");
+  periodSelect.value = selectedPeriod;
+  if (periods.length <= 1) periodSelect.setAttribute("disabled", "");
+  periodSelect.onchange = () => {
+    selectedPeriod = periodSelect.value;
+    // Placeholder: snapshot only carries MTD data today.
   };
 
   const compareSelect = $("#global-compare");
@@ -453,14 +531,15 @@ $("#theme-toggle").addEventListener("click", () => {
 window.addEventListener("resize", () => snapshot && requestAnimationFrame(() => renderActiveView()));
 
 loadDocument()
-  .then((result) => {
-    doc = result.doc;
-    currentSource = result.source;
+  .then((loaded) => {
+    doc = loaded;
     selectedTenant = doc.views[doc.defaultTenant] ? doc.defaultTenant : Object.keys(doc.views)[0];
+    selectedBillingAccount = doc.defaultBillingAccount || (doc.billingAccounts && doc.billingAccounts[0]?.id) || "";
+    selectedPeriod = doc.defaultPeriod || (doc.periodOptions && doc.periodOptions[0]?.id) || "";
     setupGlobalControls();
     renderActiveView();
   })
   .catch((error) => {
-    $("#data-source-label").textContent = "Failed to load data";
+    $("#billing-account-label").textContent = "Failed to load";
     $("#snapshot-meta").textContent = error.message;
   });

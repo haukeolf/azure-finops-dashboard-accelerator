@@ -8,6 +8,24 @@ const outputPath = join(repoRoot, "data/snapshots/dashboard-snapshot.json");
 
 const ALL_TENANTS = "all";
 
+// Synthetic headline-card metadata. Production deployments would derive these from
+// the active billing-period query (today's UTC date, fiscal calendar, budget API).
+const CURRENT_MONTH_TITLE = "May 2026";
+const QTD_LABEL = "Q2 2026 · run-rate";
+const DAYS_ELAPSED = 11;
+const BUDGET_ATTAINMENT_FACTOR = 0.965;
+const SAVINGS_PLAN_UTILIZATION_MOM_PTS = 2.1;
+const ANOMALIES_NEW_THIS_WEEK = 2;
+
+const BILLING_ACCOUNTS = [
+  { id: "generic-mca", label: "Generic FinOps Accelerator (MCA)" }
+];
+const DEFAULT_BILLING_ACCOUNT = "generic-mca";
+const PERIOD_OPTIONS = [
+  { id: "mtd", label: "Month-to-date (May 2026)" }
+];
+const DEFAULT_PERIOD = "mtd";
+
 async function readJson(name) {
   return JSON.parse(await readFile(join(sampleRoot, name), "utf8"));
 }
@@ -253,6 +271,17 @@ function buildForecast(share) {
   return { labels, actual, forecast, lower, upper };
 }
 
+function summariseAnomalies(anomalies) {
+  // Headline card breakdown. Wins are positive (resolved) anomalies, counted separately
+  // from open issues but included in the total tile count to mirror the inspo card.
+  const high = anomalies.filter((a) => a.severity === "high").length;
+  const medium = anomalies.filter((a) => a.severity === "medium").length;
+  const wins = anomalies.filter((a) => a.severity === "win").length;
+  const count = high + medium + wins;
+  const newThisWeek = Math.min(ANOMALIES_NEW_THIS_WEEK, count);
+  return { count, high, medium, wins, newThisWeek };
+}
+
 function buildAnomalySummary(anomalies, subCluster, clusters) {
   let labels = clusters.map((cluster) => cluster.name).slice(0, 5);
   if (labels.length === 0) labels = ["Compute", "Storage", "Network", "Database", "AI & Analytics"];
@@ -359,13 +388,44 @@ function buildView(tenantId, label, focusRows, allFocusRows, reservations, advis
   const yearCurrent = totalsAt(trendSeries, -1);
   const yearPrevious = totalsAt(trendSeries, 0);
 
+  const qtdDeltaPercent = quarterPrevious === 0 ? 0 : ((quarterCurrent - quarterPrevious) / quarterPrevious) * 100;
+  // Full-month forecast is the last trend column (the May 26* bucket); currentCost is MTD.
+  const currentMonthForecast = totalsAt(trendSeries, -1);
+  let ytdTotal = 0;
+  for (let i = 0; i < MONTH_LABELS.length; i += 1) ytdTotal += totalsAt(trendSeries, i);
+  const budget = ytdTotal ? pyRound(ytdTotal / BUDGET_ATTAINMENT_FACTOR) : 0;
+  const ytdVsBudgetPercent = budget === 0 ? 0 : ((ytdTotal - budget) / budget) * 100;
+
+  const reservationCoverage = reservations.coverage.reservationCoveragePercent;
+  const reservationTarget = reservations.reservationTargetPercent ?? 75;
+  const spUtilization = reservations.savingsPlanUtilizationPercent ?? 0;
+  const spHourly = reservations.savingsPlanHourlyCommitment ?? 0;
+  const spMomPts = reservations.savingsPlanUtilizationMomPts ?? SAVINGS_PLAN_UTILIZATION_MOM_PTS;
+
   const summary = {
     currentCost,
     previousCost,
     deltaMonth: currentCost - previousCost,
-    deltaQuarterPercent: isAll ? shared.deltaQuarterPercent : (quarterPrevious === 0 ? 0 : ((quarterCurrent - quarterPrevious) / quarterPrevious) * 100),
-    commitmentCoveragePercent: reservations.coverage.reservationCoveragePercent,
+    deltaQuarterPercent: isAll ? shared.deltaQuarterPercent : qtdDeltaPercent,
+    commitmentCoveragePercent: reservationCoverage,
     annualSavingsPotential: sum(recommendations, (item) => item.annualSavings),
+    currency: "EUR",
+    monthTitle: CURRENT_MONTH_TITLE,
+    daysElapsed: DAYS_ELAPSED,
+    currentMonthForecast,
+    qtdTotal: quarterCurrent,
+    qtdLabel: QTD_LABEL,
+    qtdDeltaPercent,
+    ytdTotal,
+    budget,
+    ytdVsBudgetPercent,
+    reservationCoveragePercent: reservationCoverage,
+    reservationTargetPercent: reservationTarget,
+    reservationGapPts: reservationTarget - reservationCoverage,
+    savingsPlanUtilizationPercent: spUtilization,
+    savingsPlanHourlyCommitment: spHourly,
+    savingsPlanUtilizationMomPts: spMomPts,
+    openAnomalies: summariseAnomalies(anomalies),
     compare: {
       month: deltaBlock("vs previous month", currentCost, previousCost),
       quarter: deltaBlock("vs previous quarter", quarterCurrent, quarterPrevious),
@@ -374,7 +434,7 @@ function buildView(tenantId, label, focusRows, allFocusRows, reservations, advis
   };
 
   return {
-    period: { id: `sample-current-${tenantId}`, label },
+    period: { id: `sample-current-${tenantId}`, label, monthTitle: CURRENT_MONTH_TITLE },
     summary,
     commercialChanges,
     serviceClusters: clusters,
@@ -488,10 +548,14 @@ function buildSnapshot({ focusRows, reservations, advisorRecommendations, monito
   }
 
   return {
-    schemaVersion: "0.3.0",
+    schemaVersion: "0.4.0",
     generatedAt: new Date().toISOString(),
     tenants,
     defaultTenant: ALL_TENANTS,
+    billingAccounts: BILLING_ACCOUNTS,
+    defaultBillingAccount: DEFAULT_BILLING_ACCOUNT,
+    periodOptions: PERIOD_OPTIONS,
+    defaultPeriod: DEFAULT_PERIOD,
     views
   };
 }

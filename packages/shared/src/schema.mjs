@@ -3,6 +3,10 @@ export const requiredWrapperKeys = [
   "generatedAt",
   "tenants",
   "defaultTenant",
+  "billingAccounts",
+  "defaultBillingAccount",
+  "periodOptions",
+  "defaultPeriod",
   "views"
 ];
 
@@ -40,6 +44,31 @@ const viewListKeys = [
   "moversDown"
 ];
 
+// Headline-card fields read by apps/web/src/app.mjs renderSummary().
+const requiredSummaryKeys = [
+  "currentCost",
+  "currency",
+  "monthTitle",
+  "daysElapsed",
+  "currentMonthForecast",
+  "qtdTotal",
+  "qtdLabel",
+  "qtdDeltaPercent",
+  "ytdTotal",
+  "budget",
+  "ytdVsBudgetPercent",
+  "reservationCoveragePercent",
+  "reservationTargetPercent",
+  "reservationGapPts",
+  "savingsPlanUtilizationPercent",
+  "savingsPlanHourlyCommitment",
+  "savingsPlanUtilizationMomPts",
+  "openAnomalies",
+  "compare"
+];
+
+const requiredOpenAnomaliesKeys = ["count", "high", "medium", "wins", "newThisWeek"];
+
 export function validateView(view, tenantId) {
   const missing = requiredViewKeys.filter((key) => !(key in view));
   if (missing.length > 0) {
@@ -55,12 +84,27 @@ export function validateView(view, tenantId) {
   if (typeof view.clusterDetails !== "object" || Array.isArray(view.clusterDetails)) {
     throw new Error(`View '${tenantId}': clusterDetails must be an object`);
   }
-  if (typeof view.summary.currentCost !== "number") {
+
+  const summary = view.summary;
+  if (typeof summary.currentCost !== "number") {
     throw new Error(`View '${tenantId}': summary.currentCost must be a number`);
   }
-  if (!("compare" in view.summary)) {
-    throw new Error(`View '${tenantId}': summary.compare must be present for the Compare control`);
+  const missingSummary = requiredSummaryKeys.filter((key) => !(key in summary));
+  if (missingSummary.length > 0) {
+    throw new Error(`View '${tenantId}': summary missing headline keys: ${missingSummary.join(", ")}`);
   }
+  if (typeof summary.currency !== "string" || summary.currency.length === 0) {
+    throw new Error(`View '${tenantId}': summary.currency must be a non-empty string`);
+  }
+  const openAnomalies = summary.openAnomalies;
+  if (typeof openAnomalies !== "object" || openAnomalies === null || Array.isArray(openAnomalies)) {
+    throw new Error(`View '${tenantId}': summary.openAnomalies must be an object`);
+  }
+  const missingAnom = requiredOpenAnomaliesKeys.filter((key) => !(key in openAnomalies));
+  if (missingAnom.length > 0) {
+    throw new Error(`View '${tenantId}': summary.openAnomalies missing keys: ${missingAnom.join(", ")}`);
+  }
+
   if (!view.trend.labels || !view.trend.series) {
     throw new Error(`View '${tenantId}': trend must include labels and series`);
   }
@@ -85,6 +129,22 @@ export function validateDashboardSnapshot(snapshot) {
   }
   if (typeof snapshot.views !== "object" || Array.isArray(snapshot.views) || Object.keys(snapshot.views).length === 0) {
     throw new Error("views must be a non-empty object");
+  }
+
+  if (!Array.isArray(snapshot.billingAccounts) || snapshot.billingAccounts.length === 0) {
+    throw new Error("billingAccounts must be a non-empty array");
+  }
+  const billingIds = new Set(snapshot.billingAccounts.map((item) => item.id));
+  if (!billingIds.has(snapshot.defaultBillingAccount)) {
+    throw new Error("defaultBillingAccount must reference an entry in billingAccounts");
+  }
+
+  if (!Array.isArray(snapshot.periodOptions) || snapshot.periodOptions.length === 0) {
+    throw new Error("periodOptions must be a non-empty array");
+  }
+  const periodIds = new Set(snapshot.periodOptions.map((item) => item.id));
+  if (!periodIds.has(snapshot.defaultPeriod)) {
+    throw new Error("defaultPeriod must reference an entry in periodOptions");
   }
 
   if (!(snapshot.defaultTenant in snapshot.views)) {

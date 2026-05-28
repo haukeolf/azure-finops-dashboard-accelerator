@@ -210,40 +210,36 @@ h3 { margin-bottom: 8px; letter-spacing: -0.01em; }
 
 .theme-toggle:hover { color: var(--cp-accent); border-color: var(--cp-accent); transform: translateY(-1px); }
 
-.head-controls {
-  display: flex;
-  gap: 14px;
-  align-items: flex-end;
-}
+.page-title { min-width: 0; }
 
-.global-filters {
+.filter-row {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  align-items: flex-end;
 }
 
-.global-filters label {
+.filter {
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.filter label {
   font-size: 11px;
   font-weight: 800;
-  text-transform: uppercase;
   letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--cp-text-soft);
 }
 
-.global-filters select {
-  min-width: 172px;
+.filter select {
+  min-width: 168px;
   margin-left: 0;
   box-shadow: var(--cp-shadow-sm);
 }
 
-#global-tenant {
-  border-color: var(--cp-accent);
-  color: var(--cp-accent);
-  font-weight: 700;
-}
+.filter select[disabled] { opacity: 0.7; cursor: not-allowed; }
 
 .dashboard-section { display: none; animation: fade-in 0.28s ease both; }
 .dashboard-section.active { display: block; }
@@ -295,6 +291,9 @@ h3 { margin-bottom: 8px; letter-spacing: -0.01em; }
   margin-bottom: 18px;
 }
 
+/* Six-up KPI grid — Executive Overview headline cards. */
+.kpi-grid-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+
 .grid-2 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -309,9 +308,13 @@ h3 { margin-bottom: 8px; letter-spacing: -0.01em; }
 
 .kpi {
   position: relative;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 18px 16px;
   overflow: hidden;
 }
+
+.kpi-grid-6 .kpi { padding: 16px 16px 14px; }
 
 /* Accent sheen on the lead KPI */
 .kpi:first-child::after {
@@ -339,6 +342,8 @@ h3 { margin-bottom: 8px; letter-spacing: -0.01em; }
   font-variant-numeric: tabular-nums;
 }
 
+.kpi-grid-6 .kpi-value { font-size: 26px; margin-bottom: 4px; }
+
 .kpi-note {
   color: var(--cp-text-soft);
   font-size: 13px;
@@ -347,6 +352,43 @@ h3 { margin-bottom: 8px; letter-spacing: -0.01em; }
 
 .kpi-note.positive { color: var(--cp-danger); font-weight: 600; }
 .kpi-note.negative { color: var(--cp-success); font-weight: 600; }
+
+.kpi-sub {
+  color: var(--cp-text-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.35;
+}
+
+.kpi-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 10px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-badge.up      { color: var(--cp-danger);  background: color-mix(in srgb, var(--cp-danger) 12%, transparent); }
+.kpi-badge.down    { color: var(--cp-success); background: color-mix(in srgb, var(--cp-success) 12%, transparent); }
+.kpi-badge.neutral { color: var(--cp-text-muted); background: var(--cp-surface-soft); }
+
+.section-head.uppercase h2 {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cp-text);
+}
+.section-head.uppercase p {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--cp-text-muted);
+}
 
 .chart {
   display: block;
@@ -610,6 +652,12 @@ select:hover { border-color: var(--cp-border-strong); }
   .page-head { position: static; backdrop-filter: none; -webkit-backdrop-filter: none; }
   .grid-2, .grid-3, .grid-4, .kpi-grid { grid-template-columns: 1fr; }
 }
+
+/* Six-up KPI grid: 6 → 3 → 2 → 1. Placed after the 1100px catch-all so .kpi-grid-6
+   wins at narrow widths instead of collapsing to a single column. */
+@media (max-width: 1500px) { .kpi-grid-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px)  { .kpi-grid-6 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px)  { .kpi-grid-6 { grid-template-columns: 1fr; } }
 
 @media (max-width: 720px) {
   .main { padding: 0 16px 24px; }

@@ -13,6 +13,24 @@ from schema import validate_dashboard_snapshot
 
 ALL_TENANTS = "all"
 
+# Synthetic headline-card metadata. Production deployments would derive these from
+# the active billing-period query (today's UTC date, fiscal calendar, budget API).
+CURRENT_MONTH_TITLE = "May 2026"
+QTD_LABEL = "Q2 2026 · run-rate"
+DAYS_ELAPSED = 11
+BUDGET_ATTAINMENT_FACTOR = 0.965  # ytd / budget ≈ 0.965 → ~ -3.5% vs budget
+SAVINGS_PLAN_UTILIZATION_MOM_PTS = 2.1
+ANOMALIES_NEW_THIS_WEEK = 2
+
+BILLING_ACCOUNTS = [
+    {"id": "generic-mca", "label": "Generic FinOps Accelerator (MCA)"}
+]
+DEFAULT_BILLING_ACCOUNT = "generic-mca"
+PERIOD_OPTIONS = [
+    {"id": "mtd", "label": "Month-to-date (May 2026)"}
+]
+DEFAULT_PERIOD = "mtd"
+
 
 def read_json(name):
     return json.loads((SAMPLE_ROOT / name).read_text(encoding="utf-8"))
@@ -242,6 +260,17 @@ def build_forecast(share):
     return {"labels": labels, "actual": actual, "forecast": forecast, "lower": lower, "upper": upper}
 
 
+def summarise_anomalies(anomalies):
+    """Headline card breakdown. Wins are positive (resolved) anomalies, counted separately
+    from open issues but included in the total tile count to mirror the inspo card."""
+    high = sum(1 for item in anomalies if item["severity"] == "high")
+    medium = sum(1 for item in anomalies if item["severity"] == "medium")
+    wins = sum(1 for item in anomalies if item["severity"] == "win")
+    count = high + medium + wins
+    new_this_week = min(ANOMALIES_NEW_THIS_WEEK, count)
+    return {"count": count, "high": high, "medium": medium, "wins": wins, "newThisWeek": new_this_week}
+
+
 def build_anomaly_summary(anomalies, sub_cluster, clusters):
     labels = [cluster["name"] for cluster in clusters][:5]
     if not labels:
@@ -363,13 +392,43 @@ def build_view(tenant_id, label, focus_rows, all_focus_rows, reservations, advis
     year_current = totals_at(trend_series, -1)
     year_previous = totals_at(trend_series, 0)
 
+    qtd_delta_percent = 0.0 if quarter_previous == 0 else (quarter_current - quarter_previous) / quarter_previous * 100
+    # Full-month forecast is the last trend column (the May 26* bucket); current_cost is MTD.
+    current_month_forecast = totals_at(trend_series, -1)
+    ytd_total = sum(totals_at(trend_series, i) for i in range(len(MONTH_LABELS)))
+    budget = int(round(ytd_total / BUDGET_ATTAINMENT_FACTOR)) if ytd_total else 0
+    ytd_vs_budget_percent = 0.0 if budget == 0 else (ytd_total - budget) / budget * 100
+
+    reservation_coverage = reservations["coverage"]["reservationCoveragePercent"]
+    reservation_target = reservations.get("reservationTargetPercent", 75)
+    sp_utilization = reservations.get("savingsPlanUtilizationPercent", 0)
+    sp_hourly = reservations.get("savingsPlanHourlyCommitment", 0)
+    sp_mom_pts = reservations.get("savingsPlanUtilizationMomPts", SAVINGS_PLAN_UTILIZATION_MOM_PTS)
+
     summary = {
         "currentCost": current_cost,
         "previousCost": previous_cost,
         "deltaMonth": current_cost - previous_cost,
-        "deltaQuarterPercent": shared["deltaQuarterPercent"] if is_all else (0 if quarter_previous == 0 else (quarter_current - quarter_previous) / quarter_previous * 100),
-        "commitmentCoveragePercent": reservations["coverage"]["reservationCoveragePercent"],
+        "deltaQuarterPercent": shared["deltaQuarterPercent"] if is_all else qtd_delta_percent,
+        "commitmentCoveragePercent": reservation_coverage,
         "annualSavingsPotential": rows_sum(recommendations, "annualSavings"),
+        "currency": "EUR",
+        "monthTitle": CURRENT_MONTH_TITLE,
+        "daysElapsed": DAYS_ELAPSED,
+        "currentMonthForecast": current_month_forecast,
+        "qtdTotal": quarter_current,
+        "qtdLabel": QTD_LABEL,
+        "qtdDeltaPercent": qtd_delta_percent,
+        "ytdTotal": ytd_total,
+        "budget": budget,
+        "ytdVsBudgetPercent": ytd_vs_budget_percent,
+        "reservationCoveragePercent": reservation_coverage,
+        "reservationTargetPercent": reservation_target,
+        "reservationGapPts": reservation_target - reservation_coverage,
+        "savingsPlanUtilizationPercent": sp_utilization,
+        "savingsPlanHourlyCommitment": sp_hourly,
+        "savingsPlanUtilizationMomPts": sp_mom_pts,
+        "openAnomalies": summarise_anomalies(anomalies),
         "compare": {
             "month": delta_block("vs previous month", current_cost, previous_cost),
             "quarter": delta_block("vs previous quarter", quarter_current, quarter_previous),
@@ -378,7 +437,7 @@ def build_view(tenant_id, label, focus_rows, all_focus_rows, reservations, advis
     }
 
     return {
-        "period": {"id": f"sample-current-{tenant_id}", "label": label},
+        "period": {"id": f"sample-current-{tenant_id}", "label": label, "monthTitle": CURRENT_MONTH_TITLE},
         "summary": summary,
         "commercialChanges": commercial_changes,
         "serviceClusters": clusters,
@@ -491,10 +550,14 @@ def build_snapshot(focus_rows, reservations, advisor_recommendations, monitor_fi
         views[tenant_id] = build_view(tenant_id, label, rows, focus_rows, reservations, advisor_recommendations, monitor_findings, activity_log_findings, shared)
 
     return {
-        "schemaVersion": "0.3.0",
+        "schemaVersion": "0.4.0",
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "tenants": tenants,
         "defaultTenant": ALL_TENANTS,
+        "billingAccounts": BILLING_ACCOUNTS,
+        "defaultBillingAccount": DEFAULT_BILLING_ACCOUNT,
+        "periodOptions": PERIOD_OPTIONS,
+        "defaultPeriod": DEFAULT_PERIOD,
         "views": views,
     }
 
